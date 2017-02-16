@@ -1,0 +1,307 @@
+﻿@using HealthCare.Portal.HelperClasses
+@{
+    ViewBag.Title = "Configuration";
+}
+    <main class="vh-main container">
+        <div id="loadingImage">
+            <img style="padding-top: 20%; padding-left: 40%" src="~/Content/Images/loading_comments.gif"/>
+        </div>
+        <div id="displayAllElements" style="display: none;" class="container body-content">
+            <h2>Configuration</h2>
+            <div>
+                <table class="table table-striped table-bordered" style="width: 100%">
+                    <thead>
+                    <tr class="webgrid-header panel-heading">
+                        <th><strong>Configuration</strong></th>
+                        <th><strong>Value</strong></th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td style="padding-left: 10px;">
+                            Default browser type for meetings
+                        </td>
+                        <td>
+                            <select id="DefaultBrowser" style="height: 30px; width: 65%">
+                                <option value="Microsoft Edge">Microsoft Edge</option>
+                                <option value="IE Explorer">IE Explorer</option>
+                            </select>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 10px;">
+                            Open Meeting in In Private browser
+                        </td>
+                        <td>
+                            @*<input id="chkBrowserOpenMode" type="checkbox" />*@
+                            <div class="btn-group">
+                                <button id="btnInPrivate" type="button" value="true" class="btn btn-default">Yes</button>
+                                <button id="btnNormal" type="button" value="false" class="btn btn-default">No</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 10px;">
+                            Allow Participants to wait in Lobby
+                        </td>
+                        <td>
+                            @*<input id="chkLobby" type="checkbox" />*@
+                            <div class="btn-group">
+                                <button id="btnLockedLevelMeeting" type="button" value="true" class="btn btn-default">Yes</button>
+                                <button id="btnEveryoneLevelMeeting" type="button" value="false" class="btn btn-default">No</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 10px;">
+                            Allow bandwidth calculation during Meeting conference.
+                        </td>
+                        <td>
+                            @*<input id="chkBandwidth" type="checkbox" />*@
+                            <div class="btn-group">
+                                <button id="btnAllowBandwidth" type="button" value="true" class="btn btn-default">Yes</button>
+                                <button id="btnRemoveBandwidth" type="button" value="false" class="btn btn-default">No</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 10px;">
+                            Only meetings which are scheduled within 30 minuntes can be joined.
+                        </td>
+                        <td>
+                            @*<input id="chkTimeOfJoining" type="checkbox" />*@
+                            <div class="btn-group">
+                                <button id="btnAllowJoiningIn30min" type="button" value="true" class="btn btn-default">Yes</button>
+                                <button id="btnRemoveJoiningIn30min" type="button" value="false" class="btn btn-default">No</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 10px;">
+                            Allow chat with peer doctors.
+                        </td>
+                        <td>
+                            @*<input id="chkAllowPeerChatControl" type="checkbox" />*@
+                            <div class="btn-group">
+                                <button id="btnAllowPeerChatControl" type="button" value="true" class="btn btn-default">Yes</button>
+                                <button id="btnRemovePeerChatControl" type="button" value="false" class="btn btn-default">No</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 10px;">
+                            Allow meeting creation using Trusted Api.
+                        </td>
+                        <td>
+                            @*<input id="chkAllowPeerChatControl" type="checkbox" />*@
+                            <div class="btn-group">
+                                <button id="btnAllowTrustedApi" type="button" value="true" class="btn btn-default">Yes</button>
+                                <button id="btnRemoveTrustedApi" type="button" value="false" class="btn btn-default">No</button>
+                            </div>
+                        </td>
+                    </tr>
+                    @*<tr>
+                        <td style="padding-left: 10px;">
+                            Encryption Key
+                        </td>
+                        <td>
+                            <input id="textboxEncryptionKey" type="text" value="@KeyVaultHelper.EncryptionKey" class="text-center"/>
+                        </td>
+
+                    </tr>*@
+                    @*<tr>
+                        <td style="padding-left:10px;">
+                            Encryption Salt
+                        </td>
+                        <td>
+                            <input id="textboxEncryptionSalt" type="text" value="@KeyVaultHelper.EncryptionSalt" class="text-center"/>
+                        </td>
+                    </tr>*@
+                </table>
+            </div>
+
+            <div style="padding-top: 30px; text-align: center">
+                <button id="btnSubmit" type="button" class="btn btn-primary">Save</button>
+            </div>
+            @*<div></div>
+            <div id="Message"></div>*@
+            <div style="padding-top: 20px">
+                <h2>Reports</h2>
+                <a target="_blank" href="https://msit.powerbi.com/view?r=eyJrIjoiMWVmOTlkNDgtNTU3YS00MjdjLThhMGEtOTUzYzM1N2I5ZTM0IiwidCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsImMiOjV9" title="Meeting Statistics">Meeting Statistics</a>
+            </div>
+        </div>
+    </main>
+
+@section scripts{
+    <script src="~/Scripts/SignInToSkype.js"></script>
+    <script type="text/javascript">
+        var client;
+        var clientId = '@ConfigValues.ClientId';
+        var hostUri = "@ConfigValues.HealthCarePortal";
+
+        function GetConfigDetails(hostUri) {
+            var configData;
+            var url = hostUri + 'HealthCare/GetConfigurationDetails';
+            // $('#Message').html("Retrieving configuration settings..");
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                crossDomain: true,
+                success: function(data) {
+                    configData = data;
+                    if (data.length > 0) {
+                        if (data[0].Key != undefined && data[0].Value == "True") {
+                            $('#btnLockedLevelMeeting').addClass("active");
+                        } else {
+                            $('#btnEveryoneLevelMeeting').addClass("active");
+                        }
+                        if (data[1].Key != undefined && data[1].Value == "True") {
+                            $('#btnAllowBandwidth').addClass("active");
+                        } else {
+                            $('#btnRemoveBandwidth').addClass("active");
+                        }
+                        if (data[2].Key != undefined && data[2].Value == "Microsoft Edge") {
+                            $('#DefaultBrowser').val("Microsoft Edge");
+                        } else {
+                            $('#DefaultBrowser').val("IE Explorer");
+                        }
+                        if (data[3].Key != undefined && data[3].Value == "True") {
+                            $('#btnInPrivate').addClass("active");
+                        } else {
+                            $('#btnNormal').addClass("active");
+                        }
+                        if (data[4].Key != undefined && data[4].Value == "True") {
+                            $('#btnAllowJoiningIn30min').addClass("active");
+                        } else {
+                            $('#btnRemoveJoiningIn30min').addClass("active");
+                        }
+                        if (data[5].Key != undefined && data[5].Value == "True") {
+                            $('#btnAllowPeerChatControl').addClass("active");
+                        } else {
+                            $('#btnRemovePeerChatControl').addClass("active");
+                        }
+                        if (data[6].Key != undefined && data[6].Value == "True") {
+                            $('#btnAllowTrustedApi').addClass("active");
+                        } else {
+                            $('#btnRemoveTrustedApi').addClass("active");
+                        }
+                    }
+                    // $('#Message').html("");
+                    $('#loadingImage').hide();
+                    $('#displayAllElements').show();
+                },
+                error: function(x, y, z) {
+                    //alert(x + '\n' + y + '\n' + z);
+                    console.log(z);
+                    $('#loadingImage').hide();
+                    $('#displayAllElements').show();
+                }
+            });
+            return configData;
+        }
+
+        $(document).ready(function() {
+
+            SignIn();
+            console.log("Singing in");
+            $('#btnInPrivate').click(function() {
+                $('#btnNormal').removeClass('active');
+                $('#btnInPrivate').addClass('active');
+            });
+            $('#btnNormal').click(function() {
+                $('#btnInPrivate').removeClass('active');
+                $('#btnNormal').addClass('active');
+            });
+            $('#btnLockedLevelMeeting').click(function() {
+                $('#btnEveryoneLevelMeeting').removeClass('active');
+                $('#btnLockedLevelMeeting').addClass('active');
+            });
+            $('#btnEveryoneLevelMeeting').click(function() {
+                $('#btnLockedLevelMeeting').removeClass('active');
+                $('#btnEveryoneLevelMeeting').addClass('active');
+            });
+            $('#btnAllowBandwidth').click(function() {
+                $('#btnRemoveBandwidth').removeClass('active');
+                $('#btnAllowBandwidth').addClass('active');
+            });
+            $('#btnRemoveBandwidth').click(function() {
+                $('#btnAllowBandwidth').removeClass('active');
+                $('#btnRemoveBandwidth').addClass('active');
+            });
+            $('#btnAllowJoiningIn30min').click(function() {
+                $('#btnRemoveJoiningIn30min').removeClass('active');
+                $('#btnAllowJoiningIn30min').addClass('active');
+            });
+            $('#btnRemoveJoiningIn30min').click(function() {
+                $('#btnAllowJoiningIn30min').removeClass('active');
+                $('#btnRemoveJoiningIn30min').addClass('active');
+            });
+            $('#btnAllowPeerChatControl').click(function() {
+                $('#btnRemovePeerChatControl').removeClass('active');
+                $('#btnAllowPeerChatControl').addClass('active');
+            });
+            $('#btnRemovePeerChatControl').click(function() {
+                $('#btnAllowPeerChatControl').removeClass('active');
+                $('#btnRemovePeerChatControl').addClass('active');
+            });
+            $('#btnAllowTrustedApi').click(function() {
+                $('#btnRemoveTrustedApi').removeClass('active');
+                $('#btnAllowTrustedApi').addClass('active');
+            });
+            $('#btnRemoveTrustedApi').click(function() {
+                $('#btnAllowTrustedApi').removeClass('active');
+                $('#btnRemoveTrustedApi').addClass('active');
+            });
+
+
+            $('#btnSubmit').click(function() {
+                $('#loadingImage').show();
+                $('#displayAllElements').hide();
+                //$('#Message').html("Please wait update is in progress!!!");
+                var browserInPrivateOrNormal = $("#btnInPrivate").hasClass("active") ? true : false;
+                var lockedLevelMeeting = $("#btnLockedLevelMeeting").hasClass("active") ? true : false;
+                var allowBandwidth = $("#btnAllowBandwidth").hasClass("active") ? true : false;
+                var allowJoningCall = $("#btnAllowJoiningIn30min").hasClass("active") ? true : false;
+                var allowPeerChatControl = $("#btnAllowPeerChatControl").hasClass("active") ? true : false;
+                var allowTrustedApi = $("#btnAllowTrustedApi").hasClass("active") ? true : false;
+                var url = hostUri + 'HealthCare/SetConfiguration';
+                var configurationDetails = [
+                    { Key: "AllowLobby", Value: lockedLevelMeeting },
+                    { Key: "CalculateBandwidthDuringConference", Value: allowBandwidth },
+                    { Key: "DefaultBrowser", Value: $('#DefaultBrowser').val() },
+                    { Key: "MeetingOpenModeInBrowser", Value: browserInPrivateOrNormal },
+                    { Key: "TimeOfJoiningCall", Value: allowJoningCall },
+                    { Key: "AllowPeerChatControl", Value: allowPeerChatControl },
+                    { Key: "AllowTrustedApiMeeting", Value: allowTrustedApi }
+                ];
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data:  JSON.stringify(configurationDetails),
+                    cache: false,
+                    crossDomain: true,
+                    contentType: 'application/json',
+                    headers: {
+                        '__RequestVerificationToken': $('input[name=__RequestVerificationToken]').val(),
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    success: function(data) {
+                        $('#loadingImage').hide();
+                        $('#displayAllElements').show();
+                    },
+                    error: function(x, y, z) {
+                        console.log(z);
+                        $('#loadingImage').hide();
+                        $('#displayAllElements').show();
+                    }
+                });
+            });
+        });
+
+        function InitialiseSkype() {
+            GetConfigDetails(hostUri);
+        }
+    </script>
+}

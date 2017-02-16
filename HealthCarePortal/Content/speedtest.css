@@ -1,0 +1,178 @@
+﻿#canvas {
+ 	width: 189px;
+ 	height: 175px;
+ 	margin-left: auto;
+ 	margin-right: auto;
+ 
+    vertical-align: bottom;
+ }
+ 
+ .value {
+ 	text-align: center;
+ 	color: #005eb8;
+ 	margin-left: auto;
+ 	margin-right: auto;
+ 	position: relative
+ }
+ 
+ #value1 {
+ 	bottom: 42px;
+ 	right: 52px
+ }
+ 
+ #value2 {
+ 	bottom: 106px;
+ 	right: 74px
+ }
+ 
+ #value3 {
+ 	bottom: 173px;
+ 	right: 70px
+ }
+ 
+ #value4 {
+ 	bottom: 227px;
+ 	right: 45px
+ }
+ 
+ #value5 {
+ 	bottom: 266px
+ }
+ 
+ #value6 {
+ 	bottom: 272px;
+ 	left: 46px
+ }
+ 
+ #value7 {
+ 	bottom: 259px;
+ 	left: 73px
+ }
+ 
+ #value8 {
+ 	bottom: 240px;
+ 	left: 76px
+ }
+ 
+ #value9 {
+ 	bottom: 226px;
+ 	left: 50px
+ }
+ 
+ #speed {
+ 	color: #4a4a4a;
+ 	height: 38px;
+ 	margin-left: auto;
+ 	margin-right: auto;
+ 	position: relative;
+ 	bottom: 250px;
+     left:75px;
+ }
+ 
+ #unit {
+ 	color: #c5c5c5;
+ 	height: 14px;
+ 	margin-left: auto;
+ 	margin-right: auto;
+ 	position: relative;
+ 	bottom: 270px;
+     left:70px;
+ }
+ 
+ /*#button {
+ 	color: #fff;
+ 	background: #005eb8;
+ 	width: 100px;
+ 	height: 32px;
+ 	margin-left: auto;
+ 	margin-right: auto;
+ 	border-style: none;
+ 	outline: 0;
+ 	position: relative;
+ 	bottom: 225px
+ }*/
+ 
+
+ .sth4 {
+ 	margin-left: auto;
+ 	margin-right: auto;
+ 	border-style: none;
+ 	outline: 0;
+ 	position: relative;
+ 	bottom: 255px;
+ }
+
+ #result {
+ 	height: 90px
+ }
+ 
+ .lite {
+ 	opacity: .5
+ }
+ 
+ .dark {
+ 	opacity: 1
+ }
+ 
+ .resultBox {
+ 	vertical-align: top;
+ 	display: inline-block;
+ 	height: 90px;
+    padding: 1px;
+ 	
+ }
+ 
+ .resultTitle {
+ 	color: #4a4a4a;
+ 	text-align: center;
+ 	position: relative;
+ 	top: 20px
+ }
+ 
+ .resultValue {
+ 	font-size: 14px;
+ 	color: #4a4a4a;
+ 	text-align: center;
+ 	position: relative;
+ 	top: 35px
+ }
+ 
+ #pingBar {
+ 	position: relative;
+ 	top: 20px
+ }
+ 
+ #bar {
+ 	position: relative;
+ 	border: 2px solid #e3e3e3;
+ 	width: 20%;
+ 	height: 4px;
+ 	left: 40%;
+ 	top: 24px
+ }
+ 
+ #barFill {
+ 	position: relative;
+ 	border: 2px solid #4a4a4a;
+ 	width: 0%;
+ 	height: 4px;
+ 	left: 40%;
+ 	top: 20px
+ }
+ 
+ .horizontalLine {
+ 	border: 1px solid #eee;
+ 	height: 59px;
+ 	position: relative;
+ 	bottom: 75px;
+ 	display: inline-block
+ }
+ 
+ #horizontalLine1 {
+ 	left: 33.33%
+ }
+ 
+ #horizontalLine2 {
+ 	float: right;
+ 	right: 33.33%
+ }

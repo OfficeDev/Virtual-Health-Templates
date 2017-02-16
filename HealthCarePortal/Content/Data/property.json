@@ -1,0 +1,61 @@
+{
+  "mydata": {
+    "Audio_test": "Audio Test",
+    "Video_test":"Video Test",
+    "Net_test":"Network Speed Test",
+    "Plugin_test":"Lync Plugin Test",
+    "test_again":"Check Again",
+    "install_plugin":"Install Lync Plugin",
+    "heading":"Lync Pre-requisite Checker",
+    "result_summary":"Result Summary"
+     },
+     "progress":{
+      "Audio_testing":"Audio Test is in progress ...",
+      "video_testing":"Video Test is in progress ...",
+      "net_testing":"Network Speed Test is in progress ...",
+      "plugin_testing":"Lync Plugin Test is in progress ..."
+     },
+     "result":{
+    "Audio_result_true":"Audio is working fine",
+    "Audio_result_false":"Audio driver is not installed and the system cannot be used for Audio calls",
+    "Audio_result_chrome_false":"Audio driver is not installed or Headset is not plugged in",
+    "Video_result_true":"Webcam is working fine and Video calls can be made",
+    "Video_result_false":"Webcam or its necessary drivers are not found and Video calls are not allowed",
+    "Net_result_true":"",
+    "Net_result_false":"",
+    "Plugin_result_true":"Lync web plugin is installed",
+    "Plugin_result_false":"Lync web plugin is not installed. Please click the below button to install the plugin <br><font class='note'>Note: Please ignore this error message if you are testing on Skype for Business provided Laptop / Desktop</font> </br>",
+    "network_upload":"<br />Upload speed = ",
+    "network_download":"Download speed = ",
+    "net_Net_undefind":"Your network speed is undefined",
+    "net_Net_error":"Your network is having problems or is very slow",
+    "flash_error":"Please install the flash plugin for Video test"
+    },
+    
+    "plugin":{
+    "plugin_window_64":"LWAPluginInstaller.msi",
+    "plugin_window_32":"LWAPluginInstaller.msi",
+    "plugin_mac":"LWAPluginInstaller.pkg",
+    "activex_plugin":"Microsoft.LWAPlugin15.8.InProcComponentFx.1",
+    "lync_plugin":"Microsoft Lync Web App Plug-in"
+    },
+    "bandwidth":{
+    "net_slow":"Slow network speed - Only Audio is recommended",
+    "net_average":"Average network speed - Audio & Video are recommended",
+    "net_fast":"Fast network speed - Audio, Video are recommended ",
+    "net_fast_1":"Fast network speed - Audio, Video & Sharing are recommended "
+    },
+    "abort":{
+    "Audio_result_abort":"Audio test aborted",
+   	"Video_result_abort":"Video test aborted",
+   	"BandWidth_result_abort":"Bandwidth test  aborted",
+   	"Plugin_result_abort":"Plugin test aborted"
+    },
+    
+     "flash":{
+    "required_flash":"This Application requires latest Flash Plugin to be added to your browser. Click Ok to add it now!",
+    "lower_version":"10",
+    "adobe_link":"http://get.adobe.com/flashplayer"
+    }
+    
+}

@@ -1,0 +1,109 @@
+{
+  "luis_schema_version": "1.3.0",
+  "name": "VHCBotLuis",
+  "desc": "",
+  "culture": "en-us",
+  "intents": [
+    {
+      "name": "BookMeeting"
+    },
+    {
+      "name": "CancelMeeting"
+    },
+    {
+      "name": "None"
+    }
+  ],
+  "entities": [],
+  "composites": [],
+  "bing_entities": [
+    "datetime"
+  ],
+  "actions": [
+    {
+      "actionName": "BookMeeting",
+      "intentName": "BookMeeting",
+      "actionParameters": [
+        {
+          "parameterName": "Date",
+          "entityName": "datetime",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "model_features": [],
+  "regex_features": [],
+  "utterances": [
+    {
+      "text": "please book appointment on 10/24/2016",
+      "intent": "BookMeeting",
+      "entities": []
+    },
+    {
+      "text": "schedule",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "book meeting on monday",
+      "intent": "BookMeeting",
+      "entities": []
+    },
+    {
+      "text": "book",
+      "intent": "BookMeeting",
+      "entities": []
+    },
+    {
+      "text": "cancel meeting",
+      "intent": "CancelMeeting",
+      "entities": []
+    },
+    {
+      "text": "view",
+      "intent": "BookMeeting",
+      "entities": []
+    },
+    {
+      "text": "cancel",
+      "intent": "CancelMeeting",
+      "entities": []
+    },
+    {
+      "text": "postpone",
+      "intent": "CancelMeeting",
+      "entities": []
+    },
+    {
+      "text": "schedule appointment tomorrow",
+      "intent": "BookMeeting",
+      "entities": []
+    },
+    {
+      "text": "book appointment tomorrow",
+      "intent": "BookMeeting",
+      "entities": []
+    },
+    {
+      "text": "book meeting on 10/29/2016",
+      "intent": "BookMeeting",
+      "entities": []
+    },
+    {
+      "text": "hi",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "hello",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "r u there?",
+      "intent": "None",
+      "entities": []
+    }
+  ]
+}

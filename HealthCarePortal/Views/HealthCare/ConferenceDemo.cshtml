@@ -1,0 +1,403 @@
+﻿@using HealthCare.Portal.HelperClasses
+@{
+    ViewBag.Title = "Conference Demo";
+}
+<main class="vh-main container">
+    <div id="loadingImage">
+        <img style="padding-top:20%;padding-left:40%" src="~/Content/Images/loading_comments.gif" />
+    </div>
+    <div id="displayAllElements" style="display: none;" ng-app="healthCare">
+        <div id="landingContent" style="padding-top: 40px; background-color: Highlight; display: none;">
+            <div id="loading-content" style="padding-top: 100px;">
+                <div id="loadingText1" class="landing-text">
+                    We will start your virtual visit soon. Please wait for a health care professional.
+                </div>
+                <div style="text-align: center; padding-top: 300px;">
+                    <img src="~/Content/Images/logo.png" style="padding-right: 100px;" />
+                    <img src="~/Content/Images/conference-arrow.png" style="padding-right: 100px;" />
+                    <img src="~/Content/Images/skype-logo.png" style="padding-right: 100px;" />
+                </div>
+            </div>
+            <div id="patientQuestionnairePopup">
+                <div id="PatientQuestionnaire" style="border: 1px solid white;">
+                    @*<div>
+                    <span class="right-arrow" id="btnHideShow"></span>
+                </div>*@
+                    <div id="questionControllerDiv" style="display: table; table-layout: fixed;" ng-controller="myCtrl">
+                        <div class="vh-panel">
+                            <div class="panel-heading" style="border-bottom: 1px solid black; padding-bottom: 20px; padding-left:3px; border-radius:8px;">
+                                <h2 class="panel-title">Patient Questionnaire</h2>
+                            </div>
+                        </div>
+                        <div style="display: table-row">
+                            <div style="display: table-cell; border-bottom: 1px solid black; text-align: center; font-size: 18px; font-weight: bold; font-style: italic; padding-bottom: 20px;">
+                                Please provide accurate information. The information that you will provide here will not be disclosed to anyone except doctor.
+                            </div>
+                        </div>
+                        <div ng-repeat="qu in QuestionsModel">
+                            <div style="display: table-row">
+                                <div style="display: table-cell; padding-bottom: 15px;">
+                                    {{qu.Question}}
+                                </div>
+                            </div>
+                            <div style="display: table-row">
+                                <div style="display: table-cell; border-bottom: 1px solid black; padding-bottom: 10px;">
+                                    <div ng-repeat="op in qu.Options">
+                                        <input type="radio" ng-model="qu.SelectedOptions" value="{{op}}" />{{op}}<br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: table-row">
+                            <div style="display: table-cell; text-align: center; padding-top: 20px;">
+                                <input type="button" id="questionaireSubmitbtn" class="btn btn-primary" value="Submit" onclick="SaveQuestionnaire();" />
+                                <input type="button" id="questionaireCancelbtn" class="btn btn-primary" value="Cancel" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="height: 100%;">
+            <div class="modal-dialog" role="document" style="width: 70%; height: 100%;">
+                <div class="modal-content" style="height: 75%">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Configure Devices</h4>
+                    </div>
+                    <div class="modal-body" style="height: 120%;">
+                        <iframe src="ConfigureDevices" style="width: 100%; height: 70%;"></iframe>
+                        <div style="text-align:center;">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="allVideoControls" style="display: none;">
+            <div class="row">
+                <div class="col-md-8">
+                    <div>
+                        <span>
+                            <strong>Conference</strong>
+                        </span>
+                        <span title="Configure Devices" style="cursor: pointer; padding-left:7px;" data-toggle="modal" data-target="#myModal">
+                            <strong>Configure Devices</strong>
+                        </span>
+                    </div>
+                    <section class="vh-video" id="videoContainer" style="background-color:#ccc">
+                        <div id="videoControl" class="vh-video__content" style="">
+                            <div id="loading-content" class="loading-content">
+                                <div id="loadingText" class="loading-text"></div>
+                            </div>
+                            <div id="patientWindow" style="width: 100%; height: 100%; display: table; table-layout: fixed;">
+                                <div id="top-row-videos" style="width: 100%; height: 100%; display: none;">
+                                    <div class="mv-video" id="video0" style="height: 25%; background-color:rgba(221, 221, 221, 1); display: none; position:relative;">
+                                        <div id="video0Name" class="videoName"></div>
+                                    </div>
+                                    <div class="mv-video" id="video1" style="height: 25%; background-color:rgba(221, 221, 221, 1); display: none; position: relative;">
+                                        <div id="video1Name" class="videoName"></div>
+                                    </div>
+                                </div>
+                                <div id="bottom-row-videos" style="width: 100%; height: 100%; display: none;">
+                                    <div class="mv-video" id="video2" style="height: 25%; background-color:rgba(221, 221, 221, 1); display: none; position: relative;">
+                                        <div id="video2Name" class="videoName"></div>
+                                    </div>
+                                    <div class="mv-video" id="video3" style="height: 25%; background-color:rgba(221, 221, 221, 1); display: none; position: relative;">
+                                        <div id="video3Name" class="videoName"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vh-video__actionbar">
+                            <div class="row">
+                                <div class="col-sm-2 col-md-2">
+                                    <span class="pull-left" style="margin-top:4px;" data-toggle="modal" data-target="#listOfParticipant">
+                                        <a class="vh-video__action-item participants-container" href="">
+                                            <em class="vh-icn vh-icn_participantsdark"></em>
+                                            <strong style="margin-top:-38px;float:right;"><span id="participantCount"></span></strong>
+                                        </a>
+                                    </span>
+                                    <div class="modal" id="listOfParticipant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="height: 100%;">
+                                        <div class="modal-dialog" role="document" style="width:18%;">
+                                            <div class="modal-content vh-panel">
+                                                <div class="panel-heading">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color: white">&times;</span></button>
+                                                    <h4 class="panel-title">List of Participants</h4>
+                                                </div>
+                                                <div class="modal-body" style="padding-bottom: 10px;">
+                                                    <div class="panel-body">
+                                                        <div class="vh-list" id="participantsList">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer" style="text-align:center">
+                                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-8 col-md-8">
+                                    <ul class="vh-video__actions">
+                                        <li><a id="btnChatService" title="Chat service" class="vh-video__action-item" href=""><em class="vh-icn vh-icn_chat"></em></a></li>
+                                        <li>
+                                            <a id="btn-mute" title="Mute Audio" class="vh-video__action-item" href=""><em class="vh-icn vh-icn_smallmicon"></em></a>
+                                            <a id="btn-unmute" title="Un-Mute Audio" class="vh-video__action-item" style="display: none;" href=""><em class="vh-icn vh-icn_micoff"></em></a>
+                                        </li>
+                                        <li>
+                                            <a id="btn-start-video" title="Start Video" class="vh-video__action-item" href=""><em class="vh-icn vh-icn_videoon"></em></a>
+                                            <a id="btn-stop-video" title="Stop Video" class="vh-video__action-item" href="" style="display: none;"><em class="vh-icn vh-icn_videooff"></em></a>
+                                        </li>
+                                        <li>
+                                            <a id="btn-showothers-video" title="Render Video" class="vh-video__action-item" href=""><em class="vh-icn vh-icn_renderlight"></em></a>
+                                            <a id="btn-hideothers-video" title="Render Video" class="vh-video__action-item" style="display: none;" href=""><em class="vh-icn vh-icn_renderred"></em></a>
+                                        </li>
+                                        <li><a id="hang-up" class="vh-video__action-item active" data-toggle="modal" data-target="#surveyModal" href=""><em class="vh-icn vh-icn_callred"></em></a></li>
+                                        <li><a id="btnShowDevices" title="Set Devices" class="vh-video__action-item" href=""><em class="vh-icn vh-icn_settingslight "></em></a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-2 col-md-2">
+                                    <span class="pull-right" style="margin-top:-9px;margin-right:1px;">
+                                        <a class="vh-video__action-item expand" href="" id="linkVideoExpand"><em class="vh-icn vh-icn_fullscreendark"></em></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-video" style="display: none; position: absolute; z-index: +1039; background: whitesmoke; height: 120px; width: 200px; right: 0px; bottom: 60px;"
+                             id="myVideo">
+                        </div>
+
+                    </section>
+                </div>
+                <div class="col-md-4">
+                    <section class="vh-panel vh-panel--chat panel" style="padding-top:20px; border-color:white;">
+                        <div id="lobbyUsers" style="display:none;">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Patients Lobby</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="vh-list" id="mv-participants">
+                                    <span id="noLobbyUsers" class='mv-name'>No one's here.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="multipleChats" style="top: 20px;"></div>
+                    </section>
+                </div>
+                <div id="divDevicesPopUpBox" style="display: none;">
+                    <div class="devicesWrap" style="top: 12%; ">
+                        <div class="devicesBoxHead">
+                            Set Devices
+                        </div>
+                        <div class="form-horizontal">
+                            <div class="devices-group">
+                                <label class="control-label" for="cameras" style="width:150px;text-align:left;">Change Camera</label>
+                                <select class="form-control" id="cameras"></select>
+                            </div>
+                            <div class="devices-group">
+                                <label class="control-label" for="mics" style="width:150px;text-align:left;">Change Microphone</label>
+                                <select class="form-control" id="mics"></select>
+                            </div>
+                            <div class="devices-group">
+                                <label class="control-label" for="speakers" style="width:150px;text-align:left;">Change Speaker</label>
+                                <select class="form-control" id="speakers"></select>
+                            </div>
+                            <div class="devices-group" style="text-align:center;margin-top:20px;">
+                                <input type="button" id="btnSetDevices" class="btn btn-primary" value="Set" style="margin-right:20px;" />
+                                <input type="button" id="btnHideDevices" class="btn btn-primary" value="Cancel" />
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="doctorSection">
+                <div class="col-md-3" id="peerChatControl" style="display:none;">
+                    <div class="vh-panel panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Care Team</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul id="peersList" class="vh-list" ng-controller="PeersCtrl">
+                                <li class="vh-list__item" ng-repeat="doctor in doctors">
+                                    <div class="vh-list__template m-b-4">
+                                        <div class="vh-list__template-image" ng-init="getContactPresence(doctor.Email)">
+                                            <span class="status-pic" id="presence_{{doctor.Id}}"></span>
+                                        </div>
+                                        <div class="vh-list__template-details p-l-4">
+                                            <span class="pull-right">
+                                                <a href="" ng-click="openChat(doctor.Email, doctor.Title);"> <em class="vh-icn vh-icn_chat"></em></a>
+                                            </span>
+                                            <h4>{{doctor.Title}}</h4>
+                                            <h5>{{doctor.Department}}</h5>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div id="patientResponse" class="vh-panel panel" style="display:none;" ng-controller="PatientResponseCtrl">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Patient Questionnaire</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="vh-list">
+                                <li class="vh-list__item vh-list__item--divider" ng-repeat="answer in answerModel">
+                                    <div class="vh-list__template">
+                                        <div class="vh-list__template-que">
+                                            {{answer.Question}}
+                                        </div>
+                                        <div class="vh-list__template-ans">
+                                            <div class="checkbox">
+                                                <label>
+                                                    {{answer.Response}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="surveyModal" class="modal" role="dialog">
+                <div class="modal-dialog" style="width:400px;min-width:400px;">
+                    <!-- Modal content-->
+                    <div class="modal-content vh-panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Survey</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="feedbackWrap">
+                                <span class="feedbackHead" style="margin-top:10px">How was the call quality?</span><br />
+                                <span class="rating">
+                                    <input type="radio" class="rating-input" id="rating-input-1-5" name="rating-input-1" value="5">
+                                    <label for="rating-input-1-5" class="rating-star"></label>
+                                    <input type="radio" class="rating-input" id="rating-input-1-4" name="rating-input-1" value="4">
+                                    <label for="rating-input-1-4" class="rating-star"></label>
+                                    <input type="radio" class="rating-input" id="rating-input-1-3" name="rating-input-1" value="3">
+                                    <label for="rating-input-1-3" class="rating-star"></label>
+                                    <input type="radio" class="rating-input" id="rating-input-1-2" name="rating-input-1" value="2">
+                                    <label for="rating-input-1-2" class="rating-star"></label>
+                                    <input type="radio" class="rating-input" id="rating-input-1-1" name="rating-input-1" value="1">
+                                    <label for="rating-input-1-1" class="rating-star"></label>
+                                </span><br />
+                                <span class="feedbackHead">Audio Issues</span><br />
+                                <span style="display:inline-block;padding-top:4px">
+                                    <input type="checkbox" class="audio" id="chkDistortedSpeech" style="margin-top:0px;" value="Distorted Speech" /><label for="chkDistortedSpeech" style="vertical-align:top; margin-left:7px">Distorted Speech</label> <br />
+                                    <input type="checkbox" class="audio" id="chkBackGroundNoise" style="margin-top:0px;" value="Background Noise" /><label for="chkBackGroundNoise" style="vertical-align:top; margin-left:7px">Background Noise</label><br />
+                                    <input type="checkbox" class="audio" id="chkMuffledSpeech" style="margin-top:0px;" value="Muffled Speech" /><label for="chkMuffledSpeech" style="vertical-align:top; margin-left:7px">Muffled Speech</label><br />
+                                    <input type="checkbox" class="audio" id="chkEcho" style="margin-top:0px;" value="Echo" /><label for="chkEcho" style="vertical-align:top; margin-left:7px">Echo</label>
+                                </span><br />
+                                <span class="feedbackHead">Video Issues</span><br />
+                                <span style="display:inline-block;padding-top:4px">
+                                    <input type="checkbox" class="video" id="chkDistortedVideo" value="Distorted Video" style="margin-top: 0px;" /><label for="chkDistortedSpeech" style="vertical-align:top;margin-left:7px">Distorted Video</label><br />
+                                    <input type="checkbox" class="video" id="chkHazzyVideo" value="Hazzy Video" style="margin-top:0px;" /><label for="chkBackGroundNoise" style="vertical-align:top;margin-left:7px">Hazzy Video</label><br />
+                                    <input type="checkbox" class="video" id="chkStuckVideo" value="Video Stuck" style="margin-top:0px;" /><label for="chkStuckVideo" style="vertical-align:top; margin-left:7px">Video Stuck</label><br />
+                                </span>
+                                <br />
+                                <div>
+                                    <textarea rows="4" cols="50" id="comments" placeholder="Tell us more" name="Tell us more" style="margin-top:15px"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="btnAddFeedback" data-dismiss="modal">Submit</button>
+                            <button type="button" class="btn btn-primary" id="divPopBoxClose" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="BandwidthTestDiv" style="margin-top: 5%; display: none">
+            <div class="cols" id="panel">
+                <canvas width="175" height="175" id="test"></canvas>
+                <div style="display: none">
+                    <canvas width="175" height="175" id="canvas"></canvas>
+                    <div class="value" id="value1">0</div>
+                    <div class="value" id="value2">1</div>
+                    <div class="value" id="value3">5</div>
+                    <div class="value" id="value4">10</div>
+                    <div class="value" id="value5">20</div>
+                    <div class="value" id="value6">30</div>
+                    <div class="value" id="value7">50</div>
+                    <div class="value" id="value8">75</div>
+                    <div class="value" id="value9">100</div>
+                </div>
+                <div class="b_focusTextSmall" id="speed"></div>
+                <div id="unit"></div>
+                <h4 class="sth4">Network Speed Test</h4>
+                <div class="msgst">
+                    <img id="net_check_icon" src="~/Content/Images/preloader.gif" />
+                    <div id="result">
+                        <p id="net_check_result"></p>
+                        <div id="result">
+                            <div class="resultBox dark" id="pingBox">
+                                <div class="resultTitle" id="pingTitle">Ping</div>
+                                <div class="b_secondaryFocus resultValue" id="pingValue">&lt;1 ms</div>
+                                <div class="hidden" id="pingBar" style="visibility: hidden">
+                                    <div id="bar"></div>
+                                    <div id="barFill" style="width: 16%;"></div>
+                                </div>
+                            </div>
+                            <div class="resultBox dark" id="downloadBox">
+                                <div class="resultTitle" id="downloadTitle">Download</div>
+                                <div class="b_secondaryFocus resultValue" id="downloadValue"></div>
+                            </div>
+                            <div class="resultBox dark" id="uploadBox">
+                                <div class="resultTitle" id="uploadTitle">Upload</div>
+                                <div class="b_secondaryFocus resultValue" id="uploadValue"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button style="visibility: hidden" id="stbutton" type="button" class="sth4" data-inst-name="action" data-inst-title="click">Network Speed Test</button>
+            <audio controls="controls">
+                <source src="~/Content/Audio/WATER.mp3" type="audio/mpeg" />
+            </audio>
+        </div>
+    </div>
+</main>
+@section scripts{
+    <script type="text/javascript">
+        var hostUri = "@ConfigValues.HealthCarePortal";
+        var clientId = "@ConfigValues.ClientId";
+        var trustedApiLink = "@ConfigValues.TrustedApiLink";
+        var meetingSubject = "@ConfigValues.MeetingSubject";
+        var usertype;
+        var displayName;
+        var meetings;
+        var cid;
+        var meetingUri;
+        var meetingUrl;
+        var doctorsName;
+        var authTokenFromTrustedApi;
+        var meetingId;
+        var startDateTimeOfMeeting;
+        var endDateTimeOfMeeting;
+        var cookievalue;
+        var call;
+        var callRating = 0;
+        var bandwidthValue = 0;
+        var pingValue = 1;
+        var decryptedUriParameters;
+        var devicesCheck = false, questionaireSubmitted = false, questionnaireRequired, devicesChecked, questionCategory, meetingAllowedToJoin = false;
+    </script>
+    <script src="~/Scripts/underscore-min.js"></script>
+    <script src="~/Scripts/react-with-addons-0.13.3.min.js"></script>
+    <script src="~/Scripts/SignInToSkype.js"></script>
+    <script src="~/Scripts/TrustedApiAuth.js"></script>
+    <script src="~/Scripts/healthcare/ConferenceDemo.js"></script>
+    <script src="~/Scripts/multivideo.js"></script>
+    <link href="~/Content/speedtest.css" rel="stylesheet" />
+    <script src="~/Scripts/swfobject.js"></script>
+    <script src="~/Scripts/speedtest.js"></script>
+}
+

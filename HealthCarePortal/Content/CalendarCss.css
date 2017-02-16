@@ -1,0 +1,984 @@
+﻿{
+    font-family: WF-Segoe-UI-Semilight,Segoe UI Semilight,Segoe WP Semilight,Tahoma,Arial,Sans-Serif;
+    outline: none;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+}
+
+button, input, select, textarea {
+    border-style: solid;
+    border-collapse: collapse;
+    font-size: inherit;
+    border-radius: 0;
+    box-sizing: border-box;
+}
+
+button, input, select {
+    /*min-height: 30px;
+    line-height: 30px;*/
+    padding: 0;
+    margin: 0;
+    border-width: 0;
+    overflow: hidden;
+}
+
+    input[type=email], input[type=tel], input[type=text], input[type=url] {
+        border-bottom-width: 1px;
+    }
+
+    input[type=radio] {
+        display: none;
+    }
+
+input, textarea {
+    padding: 9px 16px;
+}
+
+textarea {
+    resize: none;
+    overflow: auto;
+    border-width: 1px;
+}
+
+button {
+    padding: 7px 20px;
+    cursor: pointer;
+}
+
+button, label span, label var {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1, h3 {
+    padding: 0;
+    margin: 0;
+    font-weight: 400;
+    opacity: .9;
+}
+
+h1 {
+    font-size: 44px;
+    font-family: WF-Segoe-UI-Light,Segoe UI Light,Segoe WP Light,Tahoma,Arial,Sans-Serif;
+}
+
+h3 {
+    font-size: 18px;
+    font-family: WF-Segoe-UI-Semibold,Segoe UI Semibold,Segoe WP Semibold,Tahoma,Arial,Sans-Serif;
+}
+
+var {
+    font-style: normal;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+::-ms-clear {
+    display: none;
+}
+
+::-webkit-clear-button {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.image {
+    display: inline-block;
+    text-align: center;
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+.charm {
+    width: 48px !important;
+    height: 48px !important;
+    line-height: 48px !important;
+}
+
+.spinner {
+    animation: spin .6s infinite linear;
+    border: 3px solid;
+}
+
+.bookingsLogo {
+    padding: 12px;
+}
+
+[class*=" icon-"]:before, [class^=icon-]:before {
+    display: inline-block;
+    font-family: WF-Office365Icons;
+    line-height: 1;
+    color: inherit;
+}
+
+.icon-bookings:before {
+    content: '\E32A';
+}
+
+.icon-chevronLeft:before {
+    content: '\E237';
+}
+
+.icon-chevronRight:before {
+    content: '\E238';
+}
+
+.icon-chevronDown:before {
+    content: '\E236';
+}
+
+.icon-info:before {
+    content: '\E037';
+}
+
+.icon-error:before {
+    content: '\E007';
+}
+
+.icon-email:before {
+    content: '\E009';
+}
+
+.icon-phone:before {
+    content: '\E023';
+}
+
+.icon-website:before {
+    content: '\E222';
+}
+
+.icon-location:before {
+    content: '\E124';
+}
+
+.icon-appointment:before {
+    content: '\E012';
+}
+
+.icon-cancel:before {
+    content: '\E0A6';
+}
+
+.icon-doughboy:before {
+    content: '\E008';
+}
+
+.mainContent {
+    max-width: 1024px;
+    min-width: 320px;
+    margin: 0 auto;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+}
+
+.dialog, .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.dialog {
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+}
+
+    .dialog .container {
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 350px;
+        overflow: hidden;
+        box-shadow: 0 0 6px 0 rgba(0,0,0,.2);
+    }
+
+    .dialog .buttons, .dialog .content {
+        padding: 16px 36px;
+    }
+
+    .dialog .content {
+        min-height: 100px;
+        max-height: 420px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        box-sizing: border-box;
+    }
+
+    .dialog div.content > div {
+        margin: 20px 0;
+    }
+
+    .dialog h3 ~ small {
+        display: block;
+        margin: 8px 0 0;
+    }
+
+    .dialog .details {
+        font-size: 18px;
+    }
+
+    .dialog .description, .dialog h3 ~ small {
+        font-size: 16px;
+    }
+
+    .dialog .buttons {
+        padding: 0 36px 36px;
+    }
+
+    .dialog button {
+        width: 100%;
+    }
+
+.bookingForm, .bookingSummaryForm {
+    text-align: center;
+}
+
+.section {
+    box-shadow: 0 -2px 6px 0 rgba(0,0,0,.1);
+}
+
+.headerSection img {
+    border: 0;
+    width: 120px;
+    height: 120px;
+}
+
+.headerSection h1 {
+    margin: 22px 0;
+}
+
+.footerSection {
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    box-shadow: 0 0 6px 0 rgba(0,0,0,.1);
+}
+
+    .footerSection .divider {
+        margin: 0 3px;
+    }
+
+    .footerSection p {
+        margin: 8px 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+.bookingSummaryServiceName {
+    padding: 5px 0 24px;
+}
+
+.bookingDetailsSection {
+    padding-bottom: 35px;
+}
+
+.bookingDetailsColumn {
+    vertical-align: top;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.bookingDetailsButtons {
+    margin-top: 6px;
+}
+
+.bookingDetailsRow {
+    text-align: center;
+    margin: 0;
+}
+
+.bookingDetailsText {
+    min-height: 48px;
+    overflow: hidden;
+    padding: 0 10px;
+    margin: 13px 0 15px;
+}
+
+.bookingDetailsButton {
+    height: 45px;
+    margin-bottom: 4px;
+}
+
+.bookingCancelDialogBack {
+    margin-top: 6px;
+}
+
+.cancelDialog > h3 {
+    padding-top: 21px;
+}
+
+.cancelConfirmDialog > h3 {
+    padding-top: 20px;
+    margin: 0;
+}
+
+.cancelConfirmDialog > p {
+    margin: 0;
+}
+
+.errorSection h3 {
+    margin: 40px;
+}
+
+.bookingInfoHeader {
+    display: inline-block;
+    width: 100%;
+}
+
+    .bookingInfoHeader > h3 {
+        display: inline-block;
+        max-width: 70%;
+    }
+
+.servicePicker {
+    margin: auto;
+    max-height: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+    .servicePicker ul, .staffPicker ul, .timePicker ul {
+        font-size: 0;
+        text-align: left;
+        padding: 0;
+        margin: 0;
+    }
+
+        .servicePicker ul.center {
+            text-align: center;
+        }
+
+    .servicePicker li, .staffPicker li, .timePicker li {
+        font-size: 16px;
+        line-height: 20px;
+        list-style: none;
+        display: inline-block;
+    }
+
+    .servicePicker li {
+        width: 46%;
+        text-align: left;
+    }
+
+        .servicePicker li.left {
+            margin: 0 4% 0 0;
+        }
+
+        .servicePicker li.right {
+            margin: 0 0 0 4%;
+        }
+
+    .servicePicker label, .staffPicker label, .timePicker label {
+        cursor: pointer;
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .servicePicker li.left label {
+        padding: 16px 20px 16px 80px;
+    }
+
+    .servicePicker li.right label {
+        padding: 16px 80px 16px 20px;
+    }
+
+    .servicePicker li.center label {
+        padding: 16px 20px;
+    }
+
+    .servicePicker span.name {
+        display: inline-block;
+    }
+
+    .servicePicker span.details {
+        display: block;
+    }
+
+    .bookingInfoHeader button.infoCircleButton, .servicePicker button.infoCircleButton {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        min-width: 24px;
+        min-height: 24px;
+        height: 24px;
+        line-height: 24px;
+    }
+
+    .servicePicker button.infoCircleButton {
+        float: right;
+    }
+
+.bookingInfoHeader button.infoCircleButton {
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.picker {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 40px;
+    text-align: left;
+}
+
+.datePicker, .picker {
+    width: 392px;
+}
+
+    .datePicker .header {
+        margin: 0 8px;
+    }
+
+    .datePicker .monthName, .datePicker .navigator {
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 48px;
+    }
+
+    .datePicker .monthName {
+        font-size: 18px;
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-left: 8px;
+    }
+
+    .datePicker .navigator {
+        cursor: pointer;
+        width: 32px;
+    }
+
+        .datePicker .navigator:hover {
+            font-weight: 700;
+        }
+
+        .datePicker .navigator.disabled {
+            font-weight: inherit;
+            cursor: default;
+        }
+
+    .datePicker .loading {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+
+        .datePicker .loading .spinner {
+            margin: 102px 0 0;
+        }
+
+    .datePicker .dates {
+        position: relative;
+    }
+
+    .datePicker .date, .datePicker .weekday {
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        width: 36px;
+        height: 36px;
+        line-height: 36px;
+        padding: 4px;
+        margin: 2px 6px;
+    }
+
+    .datePicker .date {
+        cursor: pointer;
+    }
+
+    .datePicker .empty, .datePicker .empty:hover {
+        cursor: auto;
+    }
+
+.staffPicker {
+    width: 100%;
+    font-size: 0;
+}
+
+    .staffPicker button {
+        position: relative;
+        width: 100%;
+        height: 48px;
+        font-size: 18px;
+        line-height: 40px;
+        text-align: left;
+        padding: 3px 20px;
+        border-bottom: 1px solid;
+    }
+
+    .staffPicker var {
+        float: right;
+        margin-left: 12px;
+    }
+
+    .staffPicker ul {
+        position: absolute;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100%;
+        max-width: 392px;
+        max-height: 288px;
+        z-index: 50;
+        border: 1px solid;
+        box-sizing: border-box;
+        box-shadow: 0 1px 6px 0 rgba(0,0,0,.1);
+        margin-top: -1px;
+    }
+
+    .staffPicker li {
+        display: block;
+    }
+
+        .staffPicker li span {
+            display: block;
+            line-height: normal;
+        }
+
+        .staffPicker li var {
+            font-family: WF-Segoe-UI-Regular,Segoe UI Regular,Segoe WP Regular,Tahoma,Arial,Sans-Serif;
+            font-size: 12px;
+        }
+
+    .staffPicker label {
+        padding: 14px 20px;
+    }
+
+.timePicker {
+    width: 100%;
+    max-height: 240px;
+    margin-top: 48px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+    .timePicker li {
+        width: 32%;
+        text-align: center;
+        animation: fade-in 1s backwards;
+        margin: 2px;
+    }
+
+    .timePicker label {
+        padding: 12px 0;
+    }
+
+    .timePicker span.message {
+        display: block;
+        cursor: auto;
+        text-align: center;
+        white-space: normal;
+        padding: 13px 10px;
+    }
+
+    .timePicker .spinner {
+        margin: 89px 0 0;
+    }
+
+.customerDetails {
+    display: block;
+    margin: 0 auto;
+}
+
+    .customerDetails div {
+        display: inline-block;
+        width: 392px;
+        vertical-align: bottom;
+        margin: 0 40px;
+        text-align: left;
+    }
+
+    .customerDetails input {
+        display: block;
+        width: 100%;
+        height: 48px;
+    }
+
+    .customerDetails span {
+        display: block;
+    }
+
+    .customerDetails textarea {
+        width: 100%;
+        margin-top: 20px;
+        vertical-align: bottom;
+    }
+
+@keyframes fade-in {
+    0% {
+        opacity: .5;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+@media (min-width:1021px) {
+    .section {
+        padding: 16px 0 48px;
+    }
+
+    .customerSection h3, .serviceSection h3, .timeSection h3 {
+        margin: 6px 0 36px;
+    }
+
+    .bookingInfoSection, .bookingSummaryHeader, .serviceSection {
+        padding: 28px 0;
+    }
+
+        .serviceSection h3 {
+            margin: 42px 0 20px;
+        }
+
+    .footerSection {
+        padding: 24px 80px;
+    }
+
+    .bookingInfoSection, .bookingSummaryHeader {
+        padding-bottom: 20px;
+    }
+
+    .bookingDetailsColumn {
+        display: inline-block;
+        width: 40%;
+    }
+
+    .bookingInfoSection .bookingDetailsColumn {
+        width: 90%;
+    }
+
+    .bookingDetailsButton {
+        width: 75%;
+    }
+
+    .bookButton {
+        margin: 48px auto 0;
+        
+    }
+
+    .bookButton, .bookDiscardButton {
+        min-width: 240px;
+        display: inline-block;
+    }
+
+    .bookDiscardButton {
+        margin-left: 12px;
+    }
+
+    .bookingInfoHeader button.infoCircleButton {
+        vertical-align: top;
+    }
+
+    .bookButtonContainer, .bookDiscardButtonContainer {
+        display: inline-block;
+    }
+
+    .servicePicker span.name {
+        max-width: 330px;
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    .servicePicker li.center span.name {
+        max-width: 390px;
+    }
+}
+
+@media (max-width:1020px) {
+    body {
+        font-size: 15px;
+    }
+
+    h1, h3 {
+        opacity: 1;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    h3 {
+        font-size: 15px;
+    }
+
+    .mainContent {
+        max-width: 420px;
+    }
+
+    .dialog .container {
+        max-width: 320px;
+    }
+
+    .dialog .buttons, .dialog .content {
+        padding: 8px 28px;
+    }
+
+    .dialog .buttons {
+        padding: 0 28px 28px;
+    }
+
+    .dialog div.content > div, .dialog h3 ~ small {
+        font-size: 15px;
+    }
+
+    .section {
+        padding: 10px 0 16px;
+    }
+
+    .customerSection h3, .serviceSection h3, .staffSection h3, .timeSection h3 {
+        margin: 4px 0 14px;
+    }
+
+    .headerSection img {
+        margin-top: 10px;
+    }
+
+    .headerSection button {
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        margin: 0 8px;
+    }
+
+    .bookingInfoSection, .bookingSummaryHeader, .serviceSection {
+        text-align: center;
+        padding: 6px 0 16px;
+    }
+
+        .serviceSection h3 {
+            margin: 20px 0 12px;
+        }
+
+    .bookingSummaryHeader {
+        padding-bottom: 28px;
+    }
+
+        .bookingSummaryHeader h3 {
+            padding: 16px 28px 0;
+        }
+
+    .bookingInfoSection {
+        padding-bottom: 12px;
+    }
+
+    .bookingDetailsRow {
+        padding: 0 28px;
+    }
+
+    .bookingDetailsButton {
+        width: 100%;
+    }
+
+    .customerSection {
+        padding: 10px 0 24px;
+    }
+
+    .footerSection {
+        padding: 24px 28px;
+    }
+
+    .servicePicker {
+        max-height: inherit;
+    }
+
+        .servicePicker li, .staffPicker li, .timePicker li {
+            font-size: 15px;
+            line-height: 20px;
+        }
+
+            .servicePicker li, .servicePicker li.left, .servicePicker li.right {
+                width: 100%;
+                margin: 0;
+            }
+
+                .servicePicker li.left label, .servicePicker li.right label {
+                    padding: 12px 28px;
+                }
+
+        .servicePicker span.name {
+            font-size: inherit;
+            line-height: inherit;
+            max-width: 230px;
+        }
+
+        .servicePicker span.details {
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        .servicePicker var {
+            display: none;
+        }
+
+        .servicePicker button.infoCircleButton {
+            margin: 8px 0;
+        }
+
+    .picker {
+        width: 100%;
+        margin: 0;
+    }
+
+    .staffPicker, .timePicker {
+        max-height: inherit;
+    }
+
+    .staffPicker {
+        margin-top: 0;
+    }
+
+        .staffPicker button var, .staffPicker ul var {
+            display: none;
+        }
+
+        .staffPicker ul {
+            max-width: inherit;
+            max-height: inherit;
+            position: relative;
+            border: 0;
+            box-shadow: none;
+        }
+
+        .staffPicker label {
+            padding: 14px 28px;
+        }
+
+    .datePicker {
+        width: 336px;
+        margin: auto;
+    }
+
+        .datePicker .monthName, .datePicker .navigator {
+            line-height: 40px;
+        }
+
+        .datePicker .monthName {
+            font-size: inherit;
+        }
+
+        .datePicker .navigator {
+            width: 28px;
+        }
+
+        .datePicker .loading .spinner {
+            margin: 87px 0 0;
+        }
+
+        .datePicker .date, .datePicker .weekday {
+            padding: 0;
+            margin: 3px 6px;
+        }
+
+    .timePicker {
+        width: 330px;
+        margin: 32px auto 16px;
+    }
+
+        .timePicker li {
+            width: 106px;
+        }
+
+        .timePicker .spinner {
+            margin: 0;
+        }
+
+    .customerDetails {
+        margin: 0 auto;
+    }
+
+        .customerDetails div {
+            display: block;
+            width: inherit;
+            margin: 0 28px 20px;
+        }
+
+        .customerDetails input {
+            padding: 9px 0;
+        }
+
+        .customerDetails span {
+            margin-top: 48px;
+        }
+
+    .bookButton, .bookDiscardButton {
+        display: block;
+        width: 100%;
+    }
+
+    .bookButtonContainer, .bookDiscardButtonContainer {
+        margin: 0 28px 4px;
+    }
+
+    .bookButtonContainer {
+        padding-top: 8px;
+    }
+
+    .bookingInfoHeader {
+        margin-top: 15px;
+    }
+
+        .bookingInfoHeader > h3, .bookingInfoHeader button.infoCircleButton {
+            vertical-align: middle;
+        }
+}
+
+@media (max-width:374px) {
+    .dialog .container {
+        max-width: 280px;
+    }
+
+    .datePicker {
+        width: 280px;
+    }
+
+        .datePicker .header {
+            margin: 0 4px;
+        }
+
+        .datePicker .date, .datePicker .weekday {
+            margin: 3px 2px;
+        }
+
+    .timePicker {
+        width: 276px;
+    }
+
+        .timePicker li {
+            width: 88px;
+        }
+}

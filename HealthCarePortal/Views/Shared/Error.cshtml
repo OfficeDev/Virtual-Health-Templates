@@ -1,0 +1,11 @@
+﻿<!--  Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
+        See LICENSE in the source repository root for complete license information. -->
+@{
+    ViewBag.Title = "Lamna - Something you should know";
+    ViewBag.Message = ViewBag.Message ?? "An error has occured while processing your request";
+}
+
+<div class="container body-content">
+    <h2>@ViewBag.Title</h2>
+    <div class="alert alert-danger">@ViewBag.Message</div>
+</div>

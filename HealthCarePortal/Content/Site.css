@@ -1,0 +1,533 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.loading-text {
+    font-size: large;
+    color: white;
+    text-align: center;
+    width: 342px;
+    margin: 12px auto;
+    line-height: 28px;
+}
+.landing-text {
+    font-size: 30px;
+    color: white;
+    text-align: center;
+}
+
+.loading-content {
+    height: 40px;
+    position: absolute;
+    top: 40%;
+    display:block;
+    text-align:center;
+    width:100%
+}
+
+/*Stles for Calendar in meeting View*/
+
+.header {
+    background: #000;
+    color: #FFF;
+    height: 60px;
+    line-height: 60px;
+}
+
+.header-inner {
+    padding: 0px 20px;
+}
+
+.user-status .profile-pic {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.logo, .header-nav, .user-status {
+    display: inline-block;
+}
+
+    .header-nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        margin-left: 30px;
+    }
+
+        .header-nav ul li {
+            display: inline-block;
+            padding: 0px 20px;
+        }
+
+            .header-nav ul li a, .header-nav ul li a:hover, .header-nav ul li a:active, .header-nav ul li a:visited {
+                color: #FFF;
+                text-decoration: none;
+            }
+
+.user-status {
+    float: right;
+}
+
+    .user-status .status {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        display: inline-block;
+    }
+
+        .user-status .status.green {
+            background: #00b004;
+        }
+
+.scheduled-data-container {
+    margin-left: 30px;
+}
+
+.main-heading {
+    margin: 50px 0 50px 20px;
+}
+
+.scheduled-data {
+    margin-bottom: 15px;
+}
+
+    .scheduled-data .scheduled-date {
+        color: #9e9e9e;
+        font-size: 16px;
+        border-bottom: 1px solid #d3d3d3;
+        margin-bottom: 15px;
+    }
+
+.scheduled-times .scheduled-individual-time {
+    width: 200px;
+    margin-bottom: 15px;
+    float: left;
+}
+
+    .scheduled-times .scheduled-individual-time a.skype-icon {
+        display: inline-block;
+        width: 20px;
+        height: 22px;
+        background: url('../images/skype-icon.png') no-repeat -3px 5px;
+        text-decoration: none;
+    }
+
+.clear {
+    clear: both;
+    height: 0px;
+    width: 0px;
+}
+
+.button-container .blue-btn-class {
+    border: none;
+    background: #3273bc;
+    color: #FFF;
+    padding: 5px 40px;
+}
+
+/*** Calendar Styles :: START *****/
+.calendar-container .ui-widget-header {
+    border: none;
+    background: none;
+}
+
+.calendar-container .ui-widget.ui-widget-content {
+    border: none;
+}
+
+.calendar-container .ui-state-hover, .calendar-container .ui-widget-content .ui-state-hover {
+    border: none;
+    background: none;
+    text-align: center;
+}
+
+.calendar-container .ui-state-default, .calendar-container .ui-widget-content .ui-state-default {
+    border: none;
+    background: none;
+    text-align: center;
+}
+
+.calendar-container .ui-state-highlight, .calendar-container .ui-widget-content .ui-state-highlight {
+    boder: none;
+    background: #3273bc;
+    color: #FFF;
+    text-align: center;
+}
+
+.calendar-container .ui-datepicker .ui-datepicker-prev, .calendar-container .ui-datepicker .ui-datepicker-title, .calendar-container .ui-datepicker .ui-datepicker-next {
+    background: #eeeeee;
+}
+
+.calendar-container .ui-datepicker th {
+    font-weight: normal;
+    background: #eeeeee;
+    border: 3px solid #fff;
+    font-size: 12px;
+}
+
+.calendar-container .ui-datepicker .ui-datepicker-title {
+    font-size: 14px;
+    font-weight: normal;
+}
+/*** Calendar Styles :: END *****/
+
+/***************** Virtual Appointment Styles :: START ********************/
+.participants-container {
+    position: relative;
+}
+
+    .participants-container .participants-prof-pics {
+        position: absolute;
+        top: -80px;
+        right: 0;
+    }
+
+.participants-prof-pics .participant {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid #cdcdcd;
+}
+
+.participants-prof-pics .participants-text {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.video-container {
+    background: #969696;
+    height: 300px;
+}
+
+.appointment-details-inner {
+    margin-left: 60px;
+    float: left;
+    width: 255px;
+    height: 300px;
+}
+
+    .appointment-details-inner h5 {
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+
+    .appointment-details-inner p {
+        padding-top: 5px;
+    }
+
+.my-appointment-resources .document {
+    height: 100px;
+    display: block;
+}
+/***************** Virtual Appointment Styles :: END ********************/
+
+
+@media (min-width: 1200px) {
+    .fullscreen-container {
+        max-width: 3000px;
+    }
+}
+
+.fullscreen {
+    margin: -80px 0 0 -2px;
+}
+
+.pp-pic{
+		background:url(/Content/img/ParticipantInLobby.png) no-repeat 5px 3px;
+		width:35px;
+		height:35px;
+		border-radius:50%;
+		-moz-border-radius:50%;
+		-webkit-border-radius:50%;
+		display:inline-block;
+	}
+	.orange-status{
+		background-color:orange;
+        vertical-align:middle;
+	}
+	.gray-status{
+		background-color:#e2e2e2;
+	}
+
+    #btnSkipDevicesCheck {
+        background-image:linear-gradient(rgb(37, 171, 253), rgb(11, 119, 203));
+        color:white;
+        font-weight:bold;
+        font-family: "Open Sans",Arial,"Segoe UI",Frutiger,"Frutiger Linotype","Dejavu Sans","Helvetica Neue",sans-serif
+    }
+
+
+
+    .surveyButton {
+        margin-top: 20px;
+        background-color: white;
+        border: 1px #00a1de solid;
+        color: #00a1de;
+        height: 30px;
+        padding: 3px;
+        font-size: 12px;
+        width: 100px;
+    }
+
+
+    .audio {
+        margin-right: 7px;
+    }
+
+    #ConfigureDevices {
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        background-color: rgba(0,0,0,.6);
+        z-index: 10000;
+        display: none;
+    }
+
+    #divPopBox {
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        background-color: rgba(0,0,0,.6);
+        z-index: 1100;
+        display: none;
+    }
+
+     #patientQuestionnairePopup {
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        background-color: rgba(0,0,0,.6);
+        z-index: 1040;
+        display: none;
+    }
+
+      #PatientQuestionnaire {
+        width: 400px;
+        background-color: white;
+        z-index: 1101;
+        position: relative;
+        top: 35% !important;
+        margin: 0 auto;
+        border-radius:10px;
+    }
+
+    #ParticipantsLobby {
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        background-color: rgba(0,0,0,.6);
+        z-index: 10000;
+        display: none;
+    }
+
+
+    .innerWrap {
+        height: 560px !important;
+        width: 400px;
+        background-color: white;
+        z-index: 1101;
+        position: relative;
+        top: 10% !important;
+        margin: 0 auto;
+    }
+
+
+    #openPopUp {
+        width: 350px;
+        margin: auto;
+    }
+
+    
+
+    .videoBoxHead {
+        height: 34px;
+        background-color: white;
+        font-size: 16px;
+        color: black;
+        font-weight: 300;
+        padding-left: 168px;
+        padding-top: 10px;
+        width: 87.2%;
+        float: left;
+        text-transform: uppercase;
+    }
+
+
+    .feedbackHead {
+        color: #00a1de;
+        font-weight: bold;
+        margin-top: 5px;
+        display: inline-block;
+    }
+
+
+
+    .rating {
+        overflow: hidden;
+        display: inline-block;
+        font-size: 0;
+        position: relative;
+        padding-top: 4px;
+    }
+
+    .rating-input {
+        float: right;
+        width: 16px;
+        height: 16px;
+        padding: 0;
+        margin: 0 0 0 -16px;
+        opacity: 0;
+    }
+
+        .rating:hover .rating-star:hover,
+        .rating:hover .rating-star:hover ~ .rating-star,
+        .rating-input:checked ~ .rating-star {
+            background-position: 0 0;
+        }
+
+    .rating-star,
+    .rating:hover .rating-star {
+        position: relative;
+        float: right;
+        display: block;
+        width: 16px;
+        height: 16px;
+        background: url('https://www.everythingfrontend.com/samples/star-rating/star.png') 0 -16px; /*http://kubyshkin.ru/samples/star-rating/star.png*/
+    }
+    .videoClass{
+        display:table-row;
+        border:1px solid white;
+    }
+    .videoName{
+        position:absolute;
+        bottom:10px;
+        left:5px;
+        font-size:20px;
+        font-weight:bold;
+        color:white;
+    }
+    #PatientQuestionnaire input[type=radio] {
+        display:inline-block !important;
+    }
+    #btnHideShow {
+        position:absolute;
+        top:50%;
+        left:-40px;
+    }
+    .right-arrow {
+        background:url('/Content/Images/questionnaire-right-arrow.png') no-repeat left top;
+        width:30px;
+        height:30px;
+        cursor:pointer;
+    }
+    .left-arrow {
+        background:url('/Content/Images/questionnaire-left-arrow.png') no-repeat left top;
+        width:30px;
+        height:30px;
+        cursor:pointer;
+    }
+
+    .devices-group {
+        margin-left: 50px;
+        margin-bottom:15px;
+    }
+    .devices-group label, .devices-group select {
+        display: inline-block;
+    }
+
+    #divDevicesPopUpBox {
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        background-color: rgba(0,0,0,.6);
+        z-index: 1040;
+        display: none;
+    }
+
+
+    .devicesWrap {
+        /*height: 560px !important;*/
+        width: 600px;
+        background-color: white;
+        z-index: 1101;
+        position: relative;
+        top: 20% !important;
+        margin: 0 auto;
+        border-radius:10px;
+    }
+
+     .configureDeviceWrap {
+        /*height: 560px !important;*/
+        width: 80%;
+        background-color: white;
+        z-index: 1101;
+        position: relative;
+        top: 20% !important;
+        margin: 0 auto;
+        border-radius:10px;
+    }
+
+    .devicesBoxHead {
+        font-size: 18px;
+        color: rgba(66, 139, 202, 1);
+        font-weight: bold;
+        padding-top: 15px;
+        padding-bottom:30px;
+        width: 87.2%;
+        float: left;
+        text-transform: uppercase;
+        text-align:center;
+    }
+
+    #openDevicesPopUp {
+        width: 350px;
+        margin: auto;
+    }
+
+#questionControllerDiv > .ng-scope {
+display:table;
+width:100%;
+}
+.defaultbrowser{
+    border:1px solid black;
+}
+

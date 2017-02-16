@@ -1,0 +1,230 @@
+﻿@using HealthCare.Portal.HelperClasses
+@{
+    ViewBag.Title = "Configure Devices";
+}
+<style>
+    .vh-header {
+        display: none;
+    }
+
+    body {
+        overflow-y: hidden;
+    }
+</style>
+
+<div class="container">
+    <div class="col-sm-12">
+        <div class="tab-container">
+            <div class="tab-container-inner">
+                <div class="col-xs-3">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs tabs-left sideways">
+                        <li id="liInternet" class="active">
+                            <a href="#internet" data-toggle="tab">
+                                <span class="text-icon">&#xE909;</span>
+                                <span class="title">Internet</span>
+                                <span class="arrow"></span>
+                                <span class="quetion-icon" id="internetState"></span>
+                            </a>
+                        </li>
+                        <li id="liPlugin">
+                            <a href="#plugin" data-toggle="tab" id="pluginTab">
+                                <span class="text-icon">&#xE8AF;</span>
+                                <span class="title">Plugin</span>
+                                <span class="arrow"></span>
+                                <span class="quetion-icon" id="PluginState"></span>
+                            </a>
+                        </li>
+                        <li id="liWebcam">
+                            <a href="#webcam" data-toggle="tab">
+                                <span class="text-icon">&#xE8B8;</span>
+                                <span class="title">Webcam</span>
+                                <span class="arrow"></span>
+                                <span class="quetion-icon" id="WebcamState"></span>
+                            </a>
+                        </li>
+                        <li id="liMicrophone">
+                            <a href="#microphone" data-toggle="tab">
+                                <span class="text-icon">&#xE720;</span>
+                                <span class="title">Microphone</span>
+                                <span class="arrow"></span>
+                                <span class="quetion-icon" id="MicrophoneState"></span>
+                            </a>
+                        </li>
+                        <li id="liSpeaker">
+                            <a href="#speaker" data-toggle="tab">
+                                <span class="text-icon">&#xE767;</span>
+                                <span class="title">Speaker</span>
+                                <span class="arrow"></span>
+                                <span class="quetion-icon" id="SpeakerState"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-9">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="internet">
+                            <div class="plugin-content" id="btnNetworkTest">
+                                <input type="button" value="Start Network Test" id="btnNetworkTest" />
+                            </div>
+                            <div id="networkTest" style="display:none;">
+                                <div class="cols" id="panel">
+                                    <canvas width="175" height="175" id="canvas"></canvas>
+                                    <div class="value" id="value1">0</div>
+                                    <div class="value" id="value2">1</div>
+                                    <div class="value" id="value3">5</div>
+                                    <div class="value" id="value4">10</div>
+                                    <div class="value" id="value5">20</div>
+                                    <div class="value" id="value6">30</div>
+                                    <div class="value" id="value7">50</div>
+                                    <div class="value" id="value8">75</div>
+                                    <div class="value" id="value9">100</div>
+                                    <div class="b_focusTextSmall" id="speed"></div>
+                                    <div id="unit"></div>
+                                </div>
+                                <div id="panel">
+                                    <h4 class="sth4">Network Speed Test</h4>
+                                    <div class="msgst">
+                                        <img id="net_check_icon" src="~/Content/Images/preloader.gif" />
+                                        <div id="result">
+
+                                            <p id="net_check_result"></p>
+                                            <div id="result">
+                                                <div class="resultBox dark" id="pingBox">
+                                                    <div class="resultTitle" id="pingTitle">Ping</div>
+                                                    <div class="b_secondaryFocus resultValue" id="pingValue">&lt;1 ms</div>
+                                                    <div class="hidden" id="pingBar" style="visibility: hidden">
+                                                        <div id="bar"></div>
+                                                        <div id="barFill" style="width: 16%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="resultBox dark" id="downloadBox">
+                                                    <div class="resultTitle" id="downloadTitle">Download</div>
+                                                    <div class="b_secondaryFocus resultValue" id="downloadValue"></div>
+                                                </div>
+                                                <div class="resultBox dark" id="uploadBox">
+                                                    <div class="resultTitle" id="uploadTitle">Upload</div>
+                                                    <div class="b_secondaryFocus resultValue" id="uploadValue"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button style="visibility:hidden" id="stbutton" type="button" class="sth4" data-inst-name="action" data-inst-title="click">Network Speed Test</button>
+                                <div class="button-container">
+                                    <input type="button" value="Next" id="btnInternetOk" disabled />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="plugin">
+                            <div class="plugin-content">
+                                <input type="button" value="Check Plugin" id="btnCheckPlugin" />
+                                <div id="downloadPlugins" style="display:none;">
+                                    <a class="link" href="../../Content/Plugins/SkypeForBusinessPlugin-16.0.0.292 (1).msi" target="download">Download Plugin</a>
+                                </div>
+                                <div id="PluginDetails" style="display:none;">
+                                    <div id="PluginStatus"></div>
+                                    <div class="button-container">
+                                        <input type="button" value="Back" id="btnGoToInternetTab" />
+                                        <input type="button" value="Next" id="btnPluginOk" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="webcam">
+                            <input type="button" value="Start Webcam" id="btnStartWebcam" />
+                            <div id="WebCamStatus"></div>
+                            <div id="WebCamShow" style="display:none;">
+                                <div>
+                                    <div class="form-group col-sm-8">
+                                        <label for="cameras" class="control-label">List of Camera</label>
+                                        <div>
+                                            <select class="form-control" id="cameras"></select>
+                                        </div>
+                                        <br />
+                                        <label for="selectedCamera" class="control-label">Selected Camera: </label>
+                                        <span id="selectedCamera"></span>
+                                    </div>
+                                    <div class="form-horizontal col-sm-4">
+                                        <div id="previewWindow" class="render-window"></div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div style="clear:both;">
+                                    <h3 class="webcam-msg">If you are able to see yourself, press 'Yes' else press 'No'</h3>
+                                </div>
+                            </div>
+                            <div class="button-container">
+                                <input type="button" value="No" id="btnWebcamError" />
+                                <input type="button" value="Yes" id="btnWebcamOk" />
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="microphone">
+                            <div id="MicrophoneStatus"></div>
+                            <div id="MicrophoneTab" style="display:none;">
+                                <div id="MicrophoneShow">
+                                    <div class="form-group col-sm-8">
+                                        <label for="mics" class="control-label">List of Microphone</label>
+                                        <div>
+                                            <select class="form-control" id="mics"></select>
+                                        </div>
+                                        <br />
+                                        <label for="selectedMicrophone" class="control-label">Selected Microphone: </label>
+                                        <span id="selectedMicrophone"></span>
+                                    </div>
+                                    <br />
+                                    <div style="clear:both;">
+                                        <h3 class="microphone-msg">Select the microphone you want to use and then press 'Yes'. If microphone is not listed in the drop-down then press 'No'</h3>
+                                    </div>
+                                </div>
+                                <div class="button-container">
+                                    <input type="button" value="No" id="btnMicrophoneError" />
+                                    <input type="button" value="Yes" id="btnMicrophoneOk" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="speaker">
+                            <div id="SpeakerStatus"></div>
+                            <div id="SpeakerTab" style="display:none">
+                                <div id="SpeakerShow">
+                                    <div class="form-group col-sm-6 col-md-6 col-lg-6">
+                                        <label for="speakers" class="control-label">List of Speaker</label>
+                                        <div>
+                                            <select class="form-control" id="speakers"></select>
+                                        </div>
+                                        <br />
+                                        <label for="selectedSpeaker" class="control-label">Selected Speaker: </label>
+                                        <span id="selectedSpeaker"></span>
+                                    </div>
+                                    <div class="form-group col-sm-6 col-md-6 col-lg-6">
+                                        <audio controls="controls" class="audio-control">
+                                            <source src="~/Content/Audio/WATER.mp3" type="audio/mpeg" />
+                                        </audio>
+                                    </div>
+                                    <br />
+                                    <div style="clear:both;">
+                                        <h3 class="speaker-msg">Play the audio if you can hear the sound then press 'Yes' else 'No'.</h3>
+                                    </div>
+                                </div>
+                                <div class="button-container">
+                                    <input type="button" value="No" data-dismiss="modal" id="btnSpeakerError" />
+                                    <input type="button" value="Yes" data-dismiss="modal" id="btnSpeakerOk" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    @*</div>*@
+</div>
+
+@Scripts.Render("~/bundles/ConfigurePage")
+<script type="text/javascript">
+    var hostUri = "@ConfigValues.HealthCarePortal";
+    var trustedApiLink = "@ConfigValues.TrustedApiLink";
+</script>

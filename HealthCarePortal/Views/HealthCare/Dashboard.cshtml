@@ -1,0 +1,43 @@
+﻿@using HealthCare.Portal.Models
+@model List<CalendarEvent>
+@{
+    ViewBag.Title = "Dashboard";
+    var grid = new WebGrid(Model, canPage: true, rowsPerPage: 5,
+   selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");
+    grid.Pager(WebGridPagerModes.NextPrevious);
+}
+
+<main class="vh-main container">
+    <div id="mainControls" class="container body-content">
+        <h2>Appointments</h2>
+        <div id="gridContent">
+            @if (Model.Count() > 0)
+            {
+                @grid.GetHtml(tableStyle: "webgrid-table",
+                rowStyle: "webgrid-row-style",
+                alternatingRowStyle: "webgrid-alternating-row",
+                mode: WebGridPagerModes.All,
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                selectedRowStyle: "webgrid-selected-row",
+                columns: grid.Columns(
+                    grid.Column("Subject", "Subject"),
+                    grid.Column("DoctorName", "Doctor Name"),
+                    grid.Column("PatientName", "Patient Name"),
+                    grid.Column("StartDate", "Start Date/Time", format: (item) => item.StartDate.DateTimeValue),
+                    grid.Column("EndDate", "End Date/Time", format: (item) => item.EndDate.DateTimeValue),
+                     grid.Column(header: "Join as Doctor",
+                         format: @<text><a style="cursor: pointer;" href="https://@item.MeetingUrl.Split('?')[0].Split('/')[2]/api/meeting?@item.EncryptedDoctorUri" target="_blank">Join as Doctor..</a></text>),
+                    grid.Column(header: "Join as Patient",
+                         format: @<text><a style="cursor: pointer;" href="https://@item.MeetingUrl.Split('?')[0].Split('/')[2]/api/meeting?@item.EncryptedPatientUri" target="_blank">Join as Patient</a></text>)
+                    ))
+            }
+            else
+            {
+                <div id="gridEmptyMessage">
+                    <b>There are no appointments scheduled for today</b>
+                </div>
+            }
+        </div>
+    </div>
+</main>

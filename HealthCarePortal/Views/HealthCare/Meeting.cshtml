@@ -1,0 +1,252 @@
+﻿@using HealthCare.Portal.HelperClasses
+@{
+    ViewBag.Title = "Meeting";
+}
+
+<main class="vh-main container">
+    <div id="loadingImage">
+        <img src="~/Content/Images/loading_comments.gif" style="padding-top:20%;padding-left:40%" />
+    </div>
+    <div style="display: none;" id="mainControls" class="container body-content">
+        <h2>Meeting</h2>
+        <div id="datepicker" style="text-align: left; display: inline-block; vertical-align: top; padding-bottom: 30px"></div>
+        <div style="text-align: left; display: inline-block; vertical-align: top; margin-left: 5px; position: absolute;">
+            <div id="dayavailablity" style="font-size: 18px; font-weight: bold;"></div>
+            <div id="availableslots">
+            </div>
+        </div>
+        <div class="section customerSection">
+            <h3 tabindex="0" aria-label="Add your Details">Add your Details</h3>
+            <div class="customerDetails">
+                <div>
+                    <p style="clear: both;"><input spellcheck="false" type="text" style="float: left;" placeholder="Name" id="txtName" /><span style="color: red">*</span></p>
+                    <p style="clear: both;"><input spellcheck="false" type="email" style="float: left;" placeholder="Email" id="txtEmail" /><span style="color: red">*</span></p>
+                    <input spellcheck="false" type="text" placeholder="Contact Number" id="txtPhone" />
+                    <p style="clear: both; padding-top: 10px;">
+                        <select id="ddlQuestionCategory" style="width: 100%; height: 31px;">
+                            <option value="None" selected>Select Questionnaire</option>
+                        </select>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="bookButtonContainer" style="margin-left: 300px;">
+            <input class="btn btn-primary" style="width: 210px;" type="submit" id="btnBook" value="Book" />
+            <input class="btn btn-primary" style="width: 210px;" type="submit" id="btnCancel" value="Cancel" />
+        </div>
+    </div>
+</main>
+@section scripts {
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.min.css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        var hostUri = "@ConfigValues.HealthCarePortal";
+        var clientId = "@ConfigValues.ClientId";
+        var availabledatesjson;
+        var calendarEvents = "";
+        var todaydate = new Date();
+        var dateString = todaydate.getFullYear() + "-" + (todaydate.getMonth() + 1) + "-" + todaydate.getDate();
+        $(document).ready(function () {
+            $("#loadingImage").show();
+            var url = hostUri + 'HealthCare/AvailableSlots?dateString=' + dateString;
+            $("#datepicker").datepicker({
+                onSelect: function (dateText, inst) {
+                    var selectedDate = new Date(dateString.replace('-', '/'));
+                    if (selectedDate <= new Date(dateText)) {
+                        $("#loadingImage").show();
+                        $("#mainControls").hide();
+                        url = hostUri + 'HealthCare/AvailableSlots?dateString=' + dateText;
+                        $.ajax({
+                            url: url,
+                            cache: false,
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (data) {
+                                availabledatesjson = data;
+                                FillCalendar(dateText);
+                            },
+                            error: function (x, y, z) {
+                                alert(x + '\n' + y + '\n' + z);
+                            }
+                        });
+                    } else {
+                        alert("Please select a date greater than or equal to today.")
+                    }
+                }
+            });
+
+            $.ajax({
+                url: url,
+                cache: false,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    availabledatesjson = data;
+                    var dateString1 = (todaydate.getMonth() + 1) + "/" + todaydate.getDate() + "/" + todaydate.getFullYear();
+                    FillQuestionnaire();
+                    FillCalendar(dateString1);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+            $("#btnCancel").click(function () {
+                window.location = hostUri + "/HealthCare/Dashboard";
+            });
+        });
+
+        function SingInToSkype(signInOption, uri, userType) {
+            $('#loadingImage').hide();
+            $("#mainControls").show();
+        }
+
+        function FillQuestionnaire() {
+            var url = hostUri + 'HealthCare/GetQuestionCategory';
+            $.ajax({
+                url: url,
+                cache: false,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $.each(data, function (i, item) {
+                        if (i > 0) {
+                            $('#ddlQuestionCategory').append($('<option>', {
+                                value: item,
+                                text: item
+                            }));
+                        }
+                    });
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+
+        function FillCalendar(dateString1) {
+            var count = 0;
+            $("#dayavailablity").html("Available slots for " + dateString1 + " are below");
+            var dt = new Date(dateString1);
+            var currentDate = dt.getDate();
+            var currentMonth = dt.getMonth() + 1;
+            var currentYear = dt.getFullYear();
+            var parsedJson = availabledatesjson;
+            var str = '<div class="scheduled-data"><div class="scheduled-date"><div class="scheduled-times">';
+            for (var key in parsedJson) {
+                var id = 0;
+                var value = "";
+                var timeSlot = "";
+                var arr = key.split('/');
+                if (parsedJson.hasOwnProperty(key)) {
+                    var arr1 = parsedJson[key].split('_');
+                    if (arr1 != null) {
+                        id = arr1[0];
+                        timeSlot = value = arr1[1].substring(0, arr1[1].indexOf(','));
+                        value = value.replace('AM', '');
+                        var valueHasPm = value.split('PM');
+                        if (valueHasPm.length > 1) {
+                            var time = parseInt(value.replace('PM', '')) + 12;
+                            value = time.toString() + ":00";
+                        }
+                    }
+                    var checkBoxId = "chk_" + id + "_" + currentYear + "_" + currentMonth + "_" + currentDate + "_" + value;
+                    str = str + "<div id='chkSlots' class = 'col-sm-5'><input type=checkbox id='" + checkBoxId + "' title ='" + value + "' value='" + value + "'></input> " +
+                        "<label for='" + checkBoxId + "'>" + timeSlot + "</label></div>";
+                    count++;
+                }
+
+            }
+            str = str + '</div></div></div>';
+            if (str != "") {
+                $("#availableslots").html(str);
+                $("#btnBook").show();
+            }
+            if (count == 0) {
+                $("#availableslots").html("We have no availability on this date. Please choose another one.");
+                $("#btnBook").hide();
+            }
+            $("#loadingImage").hide();
+            $("#mainControls").show();
+        }
+        $("#btnBook").click(function () {
+            $("#btnBook").attr("disabled", true);
+            var slots = "";
+            var attendeeMail = "";
+            var patientName = "";
+            var phoneNumber = "";
+            var questionCategory = "";
+            attendeeMail = $('#txtEmail').val();
+            patientName = $('#txtName').val();
+            phoneNumber = $('#txtPhone').val();
+            questionCategory = $('#ddlQuestionCategory').val();
+            var emailValidation = attendeeMail.split("@@");
+            var emailValidation2 = attendeeMail.split(".");
+            $('input[type=checkbox]:checked').each(function () {
+                slots += this.id + ";";
+            });
+            if (slots == "") {
+                alert("Please select atleast one available time for the selected date.");
+                $("#btnBook").attr("disabled", false);
+                $("#loadingImage").hide();
+                $('#mainControls').show();
+            }
+            else if (attendeeMail.trim() === '' || patientName.trim() === '') {
+                alert("Please enter values for name and email.");
+                $("#btnBook").attr("disabled", false);
+                $("#loadingImage").hide();
+                $('#mainControls').show();
+            }
+            else if (emailValidation.length <= 1 || emailValidation2.length <= 1) {
+                alert("Email is not in proper format.");
+                $("#btnBook").attr("disabled", false);
+                $("#loadingImage").hide();
+                $('#mainControls').show();
+            }
+            else {
+                $('#mainControls').hide();
+                $("#loadingImage").show();
+                var inputForCreatingMeeting = { participantEmail: attendeeMail, slots: slots, patientName: patientName, questionCategory: questionCategory };
+                $.ajax({
+                    type: "post",
+                    cache: false,
+                    headers: {
+                        '__RequestVerificationToken': $('input[name=__RequestVerificationToken]').val(),
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    url: hostUri + "HealthCare/MeetingInvitationWithoutUri",
+                    data: inputForCreatingMeeting,
+                    async: true
+                }).done(function (response) {
+                    if (response == 'Success') {
+                        console.log('token success.');
+                        console.log(response);
+                        resp = response;
+                        alert("Successfully created meeting. Redirecting to Dashboard.");
+                        $("#loadingImage").hide();
+                        $('#mainControls').show();
+                        $("#btnBook").attr("disabled", false);
+                        window.location = hostUri + "/HealthCare/Dashboard";
+                    }
+                    else {
+                        console.log(response);
+                        alert("Meeting could not be created. Please close your browser and restart once.");
+                        $("#loadingImage").hide();
+                        $('#mainControls').show();
+                        $("#btnBook").attr("disabled", false);
+                        var d = new Date();
+                        var n = d.getTime();
+                        window.location = hostUri + "/HealthCare/Meeting?vcare=" + n;
+                    }
+                }).fail(function (response) {
+                    console.log('failed');
+                    console.log(response);
+                    $("#btnBook").attr("disabled", false);
+                    alert("Failed to book meeting");
+                });
+
+
+            }
+        });
+    </script>
+}

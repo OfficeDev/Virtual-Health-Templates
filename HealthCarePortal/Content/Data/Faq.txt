@@ -1,0 +1,42 @@
+﻿[
+   {
+       "Id": "1",
+       "Question": "What is Lync pre-requisites checker?",
+       "Answer": " UCB uses the Lync Checker tool to ensure PC and/or Mac computers have the best Lync meeting experience by testing the Audio, Video, Network Speed & Lync plugin required to conduct the meeting and returns the results accordingly."
+   },
+   {
+       "Id": "2",
+       "Question": "How does Lync pre-requisites checker work?",
+       "Answer": " The User needs to access the URL in a compatible browser (See Compatible Platforms & Browsers below). Once accessed, it will produce a report showing all the components available in the machine. Depending on the report, Users may need to install one or more components."
+   },
+   {
+       "Id": "3",
+       "Question": "Why do we need Lync pre-requisites checker?",
+       "Answer": "To ensure all the component requirements needed for the meeting are checked and installed before initiating the meeting.  It will also give awareness of potential bandwidth and performance issues before starting the meeting."
+   },
+   {
+       "Id": "4",
+       "Question": "What are the compatible platforms & browsers?",
+       "Answer": "The Lync Checker Tool is compatible with Windows OS (using latest version Google Chrome , Mozilla Firefox & Internet Explorer 11 browsers) and Mac OS (using the latest version Safari or Chrome browser),please check more information from <a href =https://technet.microsoft.com/en-us/library/gg425820.aspx style=color:blue target=_blank><u>https://technet.microsoft.com/en-us/library/gg425820.aspx</u></a>."
+   },
+   {
+       "Id": "5",
+       "Question": "Why is Flash plugin required?",
+       "Answer": " The Flash plugin is mandatory for the Lync pre-requisites checker tool as this is used by the tool for checking webcam."
+   },
+   {
+       "Id": "6",
+       "Question": "Quick things to check first?",
+       "Answer": " <ul><li>Ensure you are connected to the Internet and can browse any common site such as <a href =http://www.apple.com style=color:blue target=_blank><u>www.apple.com</u></a> or <a href =http://www.yahoo.com style=color:blue target=_blank><u>www.yahoo.com</u></a> before beginning the test.</li><li> Disable popup blocker software.</li> <li>Clear the browser's cache.</li><li> Are you accessing the correct Lync Meeting URL?</li></ul>"
+   },
+   {
+       "Id": "7",
+       "Question": "I have logged in and nothing is happening?",
+       "Answer": " When you log in as a guest you need approval. An approval message will be presented to the host, till that time you will be in Lobby, Once Host Admit you will be joined in Lync meeting, If the request is declined, entrance to the meeting is not. Contact the meeting presenter or organizer if you should have access."
+   },
+   {
+       "Id": "8",
+       "Question": "Need more help?",
+       "Answer": "  Please contact <a href =mailto:IT-GlobalLyncSupportTeam@ucb.com style=color:blue target=_top>IT-GlobalLyncSupportTeam@ucb.com</a>"
+   }
+]

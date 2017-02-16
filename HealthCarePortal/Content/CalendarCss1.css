@@ -1,0 +1,225 @@
+﻿body {
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+input, select, textarea {
+    border-color: #eaeaea;
+    color: inherit;
+}
+
+    input:active, input:hover, select:active, select:hover, textarea:active, textarea:hover {
+        border-color: #c8c8c8;
+    }
+
+button {
+    color: #fff;
+    background-color: #536076;
+}
+
+    button:active, button:hover {
+        background-color: #3f4b61;
+    }
+
+    button.deemphasized {
+        color: #333;
+        background-color: #f4f4f4;
+    }
+
+        button.deemphasized:active, button.deemphasized:hover {
+            background-color: #eaeaea;
+        }
+
+a {
+    color: inherit;
+}
+
+    a:hover {
+        color: #fff;
+    }
+
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+    color: gray;
+}
+
+.charm {
+    color: #fff;
+    background-color: #536076;
+}
+
+.error {
+    background-color: #ce4b28;
+}
+
+.spinner {
+    background: transparent;
+    border-color: #eaeaea;
+    border-bottom-color: #536076;
+}
+
+.overlay {
+    background-color: rgba(0,0,0,.4);
+}
+
+.dialog .container {
+    background-color: #fff;
+}
+
+.dialog .description, .dialog h3 ~ small {
+    color: #666;
+}
+
+.bookingForm, .bookingSummaryForm {
+    background-color: #fff;
+}
+
+.bookingInfoSection, .bookingSummaryHeader, .serviceSection {
+    color: #fff;
+    background-color: #3f4b61;
+}
+
+.bookingSummaryServiceName > span {
+    color: #666;
+}
+
+.footerSection {
+    color: #a6a6a6;
+    background-color: #404040;
+}
+
+.servicePicker label.selected, .staffPicker label.selected, .timePicker label.selected {
+    color: #fff;
+    background-color: #536076;
+}
+
+.servicePicker label:hover {
+    background-color: rgba(0,0,0,.1);
+}
+
+.servicePicker label.selected {
+    background-color: rgba(0,0,0,.2);
+}
+
+.servicePicker span.details {
+    color: hsla(0,0%,100%,.7);
+}
+
+.bookingInfoSection button.infoCircleButton, .servicePicker button.infoCircleButton {
+    background-color: hsla(0,0%,100%,.35);
+}
+
+    .bookingInfoSection button.infoCircleButton:hover, .servicePicker button.infoCircleButton:hover {
+        background-color: hsla(0,0%,100%,.7);
+    }
+
+.datePicker .navigator.disabled {
+    color: #c8c8c8;
+}
+
+.datePicker .loading {
+    background-color: hsla(0,0%,100%,.75);
+}
+
+.datePicker .date {
+    color: #c8c8c8;
+}
+
+    .datePicker .date:hover {
+        background-color: #f4f4f4;
+    }
+
+.datePicker .empty, .datePicker .empty:hover {
+    background: transparent;
+}
+
+.datePicker .bookable {
+    color: inherit;
+}
+
+.datePicker .not-bookable {
+    color: #c8c8c8;
+}
+
+.datePicker .selected {
+    color: #fff;
+}
+
+    .datePicker .selected, .datePicker .selected:hover {
+        background-color: #536076;
+    }
+
+.staffPicker button {
+    color: inherit;
+    background-color: #fff;
+    border-color: #eaeaea;
+}
+
+    .staffPicker button:hover {
+        color: inherit;
+        background-color: #f4f4f4;
+        border-color: #c8c8c8;
+    }
+
+.staffPicker ul {
+    border-color: #c8c8c8;
+}
+
+.staffPicker li {
+    background-color: #fff;
+}
+
+    .staffPicker li:hover {
+        background-color: #f4f4f4;
+    }
+
+    .staffPicker li var.not-bookable {
+        color: #ce4b28;
+    }
+
+.staffPicker label.selected var.not-bookable {
+    color: hsla(0,0%,100%,.7);
+}
+
+.staffPicker label.selected:hover {
+    background-color: #536076;
+}
+
+.timePicker li:hover {
+    background-color: #f4f4f4;
+}
+
+.timePicker span.message {
+    color: #666;
+}
+
+.bookingDetails .image, .bookingInfoDialog .image {
+    color: #536076;
+}
+
+    .bookingDetails .image.circle {
+        color: #fff;
+    }
+
+.bookingInfoDialog, .serviceSection .dialog {
+    color: #333;
+}
+
+@media (min-width:1021px) {
+    .bookingInfoSection, .bookingSummaryHeader, .serviceSection {
+        background: linear-gradient(#3f4b61,#536076);
+    }
+
+    .bookingSummaryLine {
+        border-right: 1px solid #eaeaea;
+    }
+}
+
+@media (max-width:1020px) {
+    .headerSection button {
+        background-color: rgba(0,0,0,.1);
+    }
+
+        .headerSection button:hover {
+            background-color: rgba(0,0,0,.2);
+        }
+}

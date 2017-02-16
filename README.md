@@ -24,6 +24,7 @@ deploy the Virtual Health Solution:
 
 -   [Azure SDK](https://go.microsoft.com/fwlink/?LinkId=518003&clcid=0x409)
 
+[Virtual Health deployment Guide is available here] (https://github.com/OfficeDev/Virtual-Health-Templates/blob/master/Virtual%20Health%20Experiences%20for%20Skype%20for%20Business-%20Deployment%20Guide.pdf)
 
 Browser support
 ---------------

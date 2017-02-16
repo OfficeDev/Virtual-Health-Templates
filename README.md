@@ -1,19 +1,16 @@
 ﻿Virtual Health Experiences for Skype for Business
 =================================================
 
-Microsoft Services team, in partnership with the Office Extensibility team,
+Microsoft Services team, in partnership with the Office extensibility team,
 developed Virtual Health Experiences for Skype for Business on Office 365 – a
-virtual health care solution build using the Azure, Skype for Business and
-SharePoint.
+virtual health care solution, built using the Azure PaaS, Skype for Business Online and
+SharePoint Online
 
 Installation and build
 ======================
 
 Please note the following software must be installed before you can open and
 deploy the Virtual Health Solution:
-
--   [SharePoint Online Management
-    Shell](http://www.microsoft.com/en-us/download/details.aspx?id=35588)
 
 -   [Windows
     PowerShell](https://www.microsoft.com/en-us/download/details.aspx?id=50395)
@@ -27,7 +24,6 @@ deploy the Virtual Health Solution:
 
 -   [Azure SDK](https://go.microsoft.com/fwlink/?LinkId=518003&clcid=0x409)
 
--   Trusted Application sample code
 
 Browser support
 ---------------
@@ -36,7 +32,7 @@ Virtual Health supports following browsers
 
 -   Edge on Windows 10
 
--   IE latest version
+-   IE 11 on Windows 10
 
 Questions, Issues and Feedback
 ==============================

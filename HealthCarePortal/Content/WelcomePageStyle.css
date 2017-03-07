@@ -8,7 +8,7 @@
 .tabs-left>li.active>a:hover,
 .tabs-left>li.active>a:focus {
 	border:none; 
-	background:#3172b4;
+	background:rgb(204, 204, 204);
 	color:#FFF;
 	border-bottom:5px solid #d5e5f5;
 } 
@@ -16,7 +16,7 @@
 .tabs-left>li>a:hover,
 .tabs-left>li>a:focus {
 	border:none; 
-	background:#6397c9;
+	background:rgb(204, 204, 204);
 	color:#FFF;
 	border-bottom:5px solid #d5e5f5;
 }  
@@ -29,8 +29,8 @@
 .tab-container{
 	padding: 20px;
 	margin: 10px;
-	background-color: #D5E5F5;
-	border: 1px solid #BCD1E6;
+	background-color: #004b50;
+	border: 1px solid #001b1d;
 }
 .tab-container-inner{
 	background:#fff;
@@ -40,13 +40,13 @@
 } 
 .nav-tabs li a
 {
-	background:#6397c9;
+	background:#004b50;
 	color:#FFF;
 }
 .nav-tabs li.active a
 {
 	position:relative;
-	background:#3172b4;
+	background:rgb(204, 204, 204);
 	color:#FFF;
 	z-index:9;
 }
@@ -131,4 +131,7 @@
 	background:url('img/ICON_32x32_SystemTest_Network_Success.png') no-repeat top left;
 	width:32px;
 	height:32px;
+}
+.buttonColor{
+    background:#004b50;
 }

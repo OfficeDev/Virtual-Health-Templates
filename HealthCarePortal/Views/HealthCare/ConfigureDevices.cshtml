@@ -23,7 +23,6 @@
                             <a href="#internet" data-toggle="tab">
                                 <span class="text-icon">&#xE909;</span>
                                 <span class="title">Internet</span>
-                                <span class="arrow"></span>
                                 <span class="quetion-icon" id="internetState"></span>
                             </a>
                         </li>
@@ -31,7 +30,6 @@
                             <a href="#plugin" data-toggle="tab" id="pluginTab">
                                 <span class="text-icon">&#xE8AF;</span>
                                 <span class="title">Plugin</span>
-                                <span class="arrow"></span>
                                 <span class="quetion-icon" id="PluginState"></span>
                             </a>
                         </li>
@@ -39,7 +37,6 @@
                             <a href="#webcam" data-toggle="tab">
                                 <span class="text-icon">&#xE8B8;</span>
                                 <span class="title">Webcam</span>
-                                <span class="arrow"></span>
                                 <span class="quetion-icon" id="WebcamState"></span>
                             </a>
                         </li>
@@ -47,7 +44,6 @@
                             <a href="#microphone" data-toggle="tab">
                                 <span class="text-icon">&#xE720;</span>
                                 <span class="title">Microphone</span>
-                                <span class="arrow"></span>
                                 <span class="quetion-icon" id="MicrophoneState"></span>
                             </a>
                         </li>
@@ -55,7 +51,6 @@
                             <a href="#speaker" data-toggle="tab">
                                 <span class="text-icon">&#xE767;</span>
                                 <span class="title">Speaker</span>
-                                <span class="arrow"></span>
                                 <span class="quetion-icon" id="SpeakerState"></span>
                             </a>
                         </li>
@@ -114,7 +109,7 @@
                                 </div>
                                 <button style="visibility:hidden" id="stbutton" type="button" class="sth4" data-inst-name="action" data-inst-title="click">Network Speed Test</button>
                                 <div class="button-container">
-                                    <input type="button" value="Next" id="btnInternetOk" disabled />
+                                    <input type="button" value="Next" id="btnInternetOk" class="buttonColor" disabled />
                                 </div>
                             </div>
                         </div>
@@ -127,8 +122,8 @@
                                 <div id="PluginDetails" style="display:none;">
                                     <div id="PluginStatus"></div>
                                     <div class="button-container">
-                                        <input type="button" value="Back" id="btnGoToInternetTab" />
-                                        <input type="button" value="Next" id="btnPluginOk" disabled />
+                                        <input type="button" value="Back" id="btnGoToInternetTab" class="buttonColor" />
+                                        <input type="button" value="Next" id="btnPluginOk" class="buttonColor" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -157,8 +152,8 @@
                                 </div>
                             </div>
                             <div class="button-container">
-                                <input type="button" value="No" id="btnWebcamError" />
-                                <input type="button" value="Yes" id="btnWebcamOk" />
+                                <input type="button" value="No" id="btnWebcamError" class="buttonColor" />
+                                <input type="button" value="Yes" id="btnWebcamOk" class="buttonColor" />
                             </div>
                         </div>
                         <div class="tab-pane" id="microphone">
@@ -180,8 +175,8 @@
                                     </div>
                                 </div>
                                 <div class="button-container">
-                                    <input type="button" value="No" id="btnMicrophoneError" />
-                                    <input type="button" value="Yes" id="btnMicrophoneOk" />
+                                    <input type="button" value="No" id="btnMicrophoneError" class="buttonColor" />
+                                    <input type="button" value="Yes" id="btnMicrophoneOk" class="buttonColor" />
                                 </div>
                             </div>
                         </div>
@@ -209,8 +204,8 @@
                                     </div>
                                 </div>
                                 <div class="button-container">
-                                    <input type="button" value="No" data-dismiss="modal" id="btnSpeakerError" />
-                                    <input type="button" value="Yes" data-dismiss="modal" id="btnSpeakerOk" />
+                                    <input type="button" value="No" data-dismiss="modal" id="btnSpeakerError" class="buttonColor" />
+                                    <input type="button" value="Yes" data-dismiss="modal" id="btnSpeakerOk" class="buttonColor" />
                                 </div>
                             </div>
                         </div>

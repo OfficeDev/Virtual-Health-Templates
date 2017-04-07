@@ -1,6 +1,5 @@
 /// <reference path="jquery-1.11.3.intellisense.js" />
 
-
 var self = this;
 var client;
 var chatClient;
@@ -36,7 +35,7 @@ function SingInToSkype() {
     var options = {
         "client_id": clientId,
         "origins": ["https://webdir.online.lync.com/autodiscover/autodiscoverservice.svc/root"],
-        "cors": true, "version": 'Test/1.0.0.0',
+        "cors": true, "version": 'VirtualHealthTemplates/1.0.0.0',
         redirect_uri: location.href // ensure this URL is in your Reply URL in Azure
     }
 
@@ -132,7 +131,7 @@ function meetingConversationAdded(conversation) {
                 $('#participantsList').empty();
                 $('#participantCount').text(countOfParticipantsAndSelf);
                 var listOfParticipantDiv = "<div class='vh-list__item vh-list__item--divider'>" +
-                                               conversation.selfParticipant.person.displayName().split("-")[0]; +"</div>";
+                    conversation.selfParticipant.person.displayName().split("-")[0]; +"</div>";
                 conversation.participants.each(function (callParticipant) {
                     listOfParticipantDiv = listOfParticipantDiv + "<div class='vh-list__item vh-list__item--divider'>" + callParticipant.person.displayName().split("-")[0] + "</div>";
                 });
@@ -149,7 +148,6 @@ function meetingConversationAdded(conversation) {
             $('#signInStatus').html("Connected");
             if (usertype == "Doctor") {
                 $('#loadingText').html("Patient did not join the conference.");
-
             }
         }
     });
@@ -198,7 +196,7 @@ function meetingConversationAdded(conversation) {
                 $('#participantsList').empty();
                 $('#participantCount').text(countOfParticipantsAndSelf);
                 var listOfParticipantDiv = "<div class='vh-list__item vh-list__item--divider'>" +
-                                               conversation.selfParticipant.person.displayName().split("-")[0]; +"</div>";
+                    conversation.selfParticipant.person.displayName().split("-")[0]; +"</div>";
                 conversation.participants.each(function (callParticipant) {
                     listOfParticipantDiv = listOfParticipantDiv + "<div class='vh-list__item vh-list__item--divider'>" + callParticipant.person.displayName().split("-")[0] + "</div>";
                 });
@@ -236,7 +234,7 @@ function meetingConversationAdded(conversation) {
         $('#participantsList').empty();
         $('#participantCount').text(countOfParticipantsAndSelf);
         var listOfParticipantDiv = "<div class='vh-list__item vh-list__item--divider'>" +
-                                       conversation.selfParticipant.person.displayName().split("-")[0]; +"</div>";
+            conversation.selfParticipant.person.displayName().split("-")[0]; +"</div>";
         conversation.participants.each(function (callParticipant) {
             listOfParticipantDiv = listOfParticipantDiv + "<div class='vh-list__item vh-list__item--divider'>" + callParticipant.person.displayName().split("-")[0] + "</div>";
         });
@@ -273,7 +271,6 @@ function StartChatConversation(participantEmail, selfParticipant, id) {
         console.log("conversation started.");
     });
     return chatService1;
-
 }
 function StartIMConversation(meetingUri) {
     var chatConversation = client.conversationsManager.getConversationByUri(meetingUri);
@@ -359,26 +356,24 @@ function ListAvailableDevices() {
     client.devicesManager.cameras.added(function (newCamera) {
         $('#cameras')
             .append($("<option></option>")
-            .attr("value", newCamera.id())
-            .text(newCamera.name()));
-
+                .attr("value", newCamera.id())
+                .text(newCamera.name()));
     });
 
     //microphones
     client.devicesManager.microphones.added(function (newMicrophone) {
         $('#mics')
             .append($("<option></option>")
-            .attr("value", newMicrophone.id())
-            .text(newMicrophone.name()));
+                .attr("value", newMicrophone.id())
+                .text(newMicrophone.name()));
     });
 
     //speakers
     client.devicesManager.speakers.added(function (newSpeaker) {
         $('#speakers')
             .append($("<option></option>")
-            .attr("value", newSpeaker.id())
-            .text(newSpeaker.name()));
-
+                .attr("value", newSpeaker.id())
+                .text(newSpeaker.name()));
     });
     var selectedCamera = client.devicesManager.selectedCamera().id();
     $('#cameras option[value=' + selectedCamera + ']').attr('selected', 'selected');
@@ -422,7 +417,6 @@ function ChangeDevices(meetingUri) {
                 changedMicrophone = microphone;
                 //stopAduio = true;
                 client.devicesManager.selectedMicrophone.set(microphone);
-
             }
         }
     });
@@ -436,7 +430,6 @@ function ChangeDevices(meetingUri) {
                 client.devicesManager.selectedSpeaker.set(speaker);
             }
         }
-
     });
 }
 
@@ -498,21 +491,20 @@ function StopRenderingVideo(uri) {
 }
 
 function ParticipantWaitingInLobby(participant) {
-
     var dispName, participantId;
     participant.person.id.get().then(function (id) {
         participantId = id;
         dispName = participant.person.displayName().split("-")[0];
         participantId = participantId.substring(participantId.indexOf('sip:') + 4, participantId.indexOf("@"));
         var participantsDiv = "<div class='vh-list__item vh-list__item--divider'>" +
-                                "<div class='mv-participant' id='mv-participant_" + participantId + "'> " +
-                                    "<span class='pp-pic orange-status'></span>" +
-                                    "<span class='mv-name'>" + dispName + "</span>" +
-                                "</div>" +
-                                "<div class='mv-admitClass' id='" + participantId + "'>" +
-                                "<input type='button' value='Admit' class='btn btn-primary' id='btnAdmitParticipant_" + participantId + "' />" +
-                                "</div>" +
-                              "</div>";
+            "<div class='mv-participant' id='mv-participant_" + participantId + "'> " +
+            "<span class='pp-pic orange-status'></span>" +
+            "<span class='mv-name'>" + dispName + "</span>" +
+            "</div>" +
+            "<div class='mv-admitClass' id='" + participantId + "'>" +
+            "<input type='button' value='Admit' class='btn btn-primary' id='btnAdmitParticipant_" + participantId + "' />" +
+            "</div>" +
+            "</div>";
         $('#mv-participants').append(participantsDiv);
         $("#multipleChats").hide();
         $("#lobbyUsers").show();
@@ -546,7 +538,7 @@ function AdmitParticipant(dispEmail, dispName) {
                                 $('#participantsList').empty();
                                 $('#participantCount').text(countOfParticipantsAndSelf);
                                 var listOfParticipantDiv = "<div class='vh-list__item vh-list__item--divider'>" +
-                                       conversation.selfParticipant.person.displayName().split("-")[0]; +"</div>";
+                                    conversation.selfParticipant.person.displayName().split("-")[0]; +"</div>";
                                 conversation.participants.each(function (callParticipant) {
                                     listOfParticipantDiv = listOfParticipantDiv + "<div class='vh-list__item vh-list__item--divider'>" + callParticipant.person.displayName().split("-")[0] + "</div>";
                                 });
@@ -563,9 +555,7 @@ function AdmitParticipant(dispEmail, dispName) {
     }
 }
 
-
 function HangUpCall(uri) {
-
     var conversation = client.conversationsManager.getConversationByUri(uri);
     if (conversation) {
         $('#myVideo').hide();
@@ -614,7 +604,6 @@ function StopParticipantVideo() {
     HideMyVideo();
 };
 
-
 // Joins a conference as an anonymous participant.
 // uri: A SfB conference URI.
 function joinConferenceAnonymously() {
@@ -640,8 +629,6 @@ function ShowMyVideo() {
     $('#myVideo').show();
     $('#myVideo').css('display', 'inline-block');
 }
-
-
 
 function HideMyVideo() {
     $("#btn-show-video").show();
@@ -745,7 +732,6 @@ function CreateUcwaMeeting() {
         console.log('failed to create meeting uri');
         console.log(response);
     });
-
 }
 
 /*This function will be used when adhoc meeting starts working*/
@@ -771,7 +757,3 @@ function UpdateMeetingDetails() {
         console.log(response);
     });;
 }
-
-
-
-

@@ -1,4 +1,4 @@
-﻿/* 
+﻿/*
  * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
  * See LICENSE in the project root for license information.
  */
@@ -16,6 +16,7 @@ namespace HealthCare.Portal
     using HealthCare.Core.Common;
     using HealthCare.Portal.HelperClasses;
     using Microsoft.Azure.KeyVault;
+    using System.Configuration;
 
     /// <summary>
     /// MVC Application class.
@@ -39,14 +40,27 @@ namespace HealthCare.Portal
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AntiForgeryConfig.UniqueClaimTypeIdentifier = System.IdentityModel.Claims.ClaimTypes.Name;
             AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
-            CertificateHelper.GetCert();
-            var keyVault =
-                new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(CertificateHelper.GetAccessToken));
-            KeyVaultHelper.SpoPassword = keyVault.GetSecretAsync(WebConfigurationManager.AppSettings["KeyVaultBaseUrl"], "SpoPassword").Result.Value;
-            KeyVaultHelper.IdaPassword = keyVault.GetSecretAsync(WebConfigurationManager.AppSettings["KeyVaultBaseUrl"], "IdaPassword").Result.Value;
-            KeyVaultHelper.EncryptionKey = keyVault.GetSecretAsync(WebConfigurationManager.AppSettings["KeyVaultBaseUrl"], "EncryptionKey").Result.Value;
-            KeyVaultHelper.EncryptionSalt = keyVault.GetSecretAsync(WebConfigurationManager.AppSettings["KeyVaultBaseUrl"], "EncryptionSalt").Result.Value;
-            CertificateHelper.SpoPassword = KeyVaultHelper.SpoPassword;
+            //Turn OFF the KeyVault for Development environment if required but not recommended in PRODUCTION
+            if (
+                string.CompareOrdinal(ConfigurationManager.AppSettings["IsKeyVaultEnabled"].ToLower(),
+                    "false") == 0)
+            {
+                KeyVaultHelper.EncryptionKey = ConfigurationManager.AppSettings["EncryptionKey"];
+                KeyVaultHelper.EncryptionSalt = ConfigurationManager.AppSettings["EncryptionSalt"];
+                KeyVaultHelper.SpoPassword = ConfigurationManager.AppSettings["SpoPassword"];
+                CertificateHelper.SpoPassword = KeyVaultHelper.SpoPassword;
+            }
+            else
+            {
+                CertificateHelper.GetCert();
+                var keyVault =
+                    new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(CertificateHelper.GetAccessToken));
+                KeyVaultHelper.SpoPassword = keyVault.GetSecretAsync(ConfigurationManager.AppSettings["KeyVaultBaseUrl"], "SpoPassword").Result.Value;
+                KeyVaultHelper.EncryptionKey = keyVault.GetSecretAsync(ConfigurationManager.AppSettings["KeyVaultBaseUrl"], "EncryptionKey").Result.Value;
+                KeyVaultHelper.EncryptionSalt = keyVault.GetSecretAsync(ConfigurationManager.AppSettings["KeyVaultBaseUrl"], "EncryptionSalt").Result.Value;
+                CertificateHelper.SpoPassword = KeyVaultHelper.SpoPassword;
+            }
+
             // set the application insights as per environment
             Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration.Active.InstrumentationKey = WebConfigurationManager.AppSettings["iKey"];
         }

@@ -1,4 +1,4 @@
-﻿/* 
+﻿/*
  * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
  * See LICENSE in the project root for license information.
  */
@@ -134,11 +134,6 @@ namespace HealthCare.Portal.HelperClasses
         /// The mobile site URI
         /// </summary>
         private static string mobileSiteUri = WebConfigurationManager.AppSettings["MobileSiteUri"];
-
-        /// <summary>
-        /// The demo user identifier
-        /// </summary>
-        private static string demoUserId = WebConfigurationManager.AppSettings["DemoUserId"];
 
         /// <summary>
         /// The admin group
@@ -495,17 +490,6 @@ namespace HealthCare.Portal.HelperClasses
         public static string MobileSiteUri
         {
             get { return mobileSiteUri; }
-        }
-
-        /// <summary>
-        /// Gets the demo user identifier.
-        /// </summary>
-        /// <value>
-        /// The demo user identifier.
-        /// </value>
-        public static string DemoUserId
-        {
-            get { return demoUserId; }
         }
 
         /// <summary>

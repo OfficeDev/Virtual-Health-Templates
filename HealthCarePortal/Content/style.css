@@ -1,16 +1,15 @@
 /* CSS Document */
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,500,700,900);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500,700,900);
 
 body {
     margin: 0px;
     padding: 0px;
     font-family: 'Roboto', sans-serif;
-     background-color:#FFFFFF;
+    background-color: #FFFFFF;
 }
 
 #main {
     width: 100%;
-  
 }
 
 img {
@@ -22,11 +21,9 @@ img {
 }
 
 .header {
-   
     background-position: center right;
-   
     background-repeat: no-repeat;
-    padding:10px 0px 0px 10px ;
+    padding: 10px 0px 0px 10px;
 }
 
 .logo {
@@ -41,7 +38,7 @@ img {
 }
 
 .cols {
-    width: 23%; 
+    width: 23%;
     margin: 0 auto;
     max-height: 500px;
 }
@@ -57,16 +54,17 @@ img {
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    #panel .msgst {
-        height: 190px;
-        padding: 15px 10px 0px;
-        border: 1px solid #d3d3d3;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        position: relative;
-        bottom: 255px;
-        width:96%;
-    }
+
+#panel .msgst {
+    height: 190px;
+    padding: 15px 10px 0px;
+    border: 1px solid #d3d3d3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    bottom: 255px;
+    width: 96%;
+}
 
 .msg p {
     font-size: 14px;
@@ -78,7 +76,6 @@ img {
     color: #3c3c3c;
 }
 
-
 .center_title {
     background-color: #005eb8;
     display: inline-block;
@@ -87,7 +84,7 @@ img {
     -moz-border-radius: 25px;
     -webkit-border-radius: 25px;
     margin: 35px 0px;
-    color:#FFFFFF !important;
+    color: #FFFFFF !important;
 }
 
 .cols h4 {
@@ -98,7 +95,6 @@ img {
     /*blue color*/
     color: #005eb8;
 }
-
 
 .center_title, .cols sth4 {
     /*blue color*/
@@ -126,45 +122,59 @@ img {
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
-        .cols {
-        width:40%;
+    .cols {
+        width: 40%;
         margin: 5%;
     }
 }
 
 .plugin-content {
-    display:block;
-    width:100%;
-    padding-top:20%;
-    text-align:center;
-} 
-.webcam-msg, .microphone-msg{
-    position:absolute;
-    left:100px;
-    bottom:70px;
+    display: block;
+    width: 100%;
+    padding-top: 20%;
+    text-align: center;
 }
+
+.webcam-msg, .microphone-msg {
+    position: absolute;
+    left: 100px;
+    bottom: 70px;
+}
+
 .speaker-msg {
-    position:absolute;
-    left:70px;
-    bottom:70px;
+    position: absolute;
+    left: 70px;
+    bottom: 70px;
 }
+
 .audio-control {
-    margin-top:25px;
-    width:100%;
+    margin-top: 25px;
+    width: 100%;
 }
-.tab-content .button-container input[type=button]:disabled{
-                background-image: url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20%3F%3E%3Csvg%20xmlns%3…22%20height%3D%221%22%20fill%3D%22url(%23gradient)%22%20%2F%3E%3C%2Fsvg%3E);
-                background-image: -webkit-gradient(linear, left top, left bottom, from(#9d9d9d), to(#777));
-                background-image: -webkit-linear-gradient(top, #9d9d9d, #777);
-                background-image: linear-gradient(to bottom, #9d9d9d, #777);font-size: 16px;
-                border:none;color:#fff;padding:5px 30px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;max-width:100px;margin:0 5px;    font-family: 'Open Sans', Arial, "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", sans-serif;
-                font-weight: bold;
-                cursor:not-allowed;
-} 
-.tab-content .button-container input[type=button]:disabled:hover{ 
-                background-image: url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20%3F%3E%3Csvg%20xmlns%3…22%20height%3D%221%22%20fill%3D%22url(%23gradient)%22%20%2F%3E%3C%2Fsvg%3E);
-                background-image: -webkit-gradient(linear, left top, left bottom, from(#9d9d9d), to(#777));
-                background-image: -webkit-linear-gradient(top, #9d9d9d, #777);
-                background-image: linear-gradient(to bottom, #9d9d9d, #777);
-                cursor:not-allowed;
+
+.tab-content .button-container input[type=button]:disabled {
+    background-image: url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20%3F%3E%3Csvg%20xmlns%3…22%20height%3D%221%22%20fill%3D%22url(%23gradient)%22%20%2F%3E%3C%2Fsvg%3E);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#9d9d9d), to(#777));
+    background-image: -webkit-linear-gradient(top, #9d9d9d, #777);
+    background-image: linear-gradient(to bottom, #9d9d9d, #777);
+    font-size: 16px;
+    border: none;
+    color: #fff;
+    padding: 5px 30px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    max-width: 100px;
+    margin: 0 5px;
+    font-family: 'Open Sans', Arial, "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", sans-serif;
+    font-weight: bold;
+    cursor: not-allowed;
 }
+
+    .tab-content .button-container input[type=button]:disabled:hover {
+        background-image: url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20%3F%3E%3Csvg%20xmlns%3…22%20height%3D%221%22%20fill%3D%22url(%23gradient)%22%20%2F%3E%3C%2Fsvg%3E);
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#9d9d9d), to(#777));
+        background-image: -webkit-linear-gradient(top, #9d9d9d, #777);
+        background-image: linear-gradient(to bottom, #9d9d9d, #777);
+        cursor: not-allowed;
+    }

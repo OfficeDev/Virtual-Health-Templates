@@ -36,7 +36,6 @@ function SingInToSkype() {
         "client_id": clientId,
         "origins": ["https://webdir.online.lync.com/autodiscover/autodiscoverservice.svc/root"],
         "cors": true, "version": 'VirtualHealthTemplates/1.0.0.0',
-        redirect_uri: location.href // ensure this URL is in your Reply URL in Azure
     }
 
     if (authTokenFromTrustedApi != null && authTokenFromTrustedApi != '' && authTokenFromTrustedApi != undefined) {
@@ -58,8 +57,7 @@ function SignInForChat() {
     var options = {
         "client_id": clientId,
         "origins": ["https://webdir.online.lync.com/autodiscover/autodiscoverservice.svc/root"],
-        "cors": true, "version": 'Test/1.0.0.0',
-        redirect_uri: location.href, // ensure this URL is in your Reply URL in Azure
+        "cors": true, "version": 'VirtualHealthTemplates/1.0.0.0',
     }
 
     chatClient.signInManager.signIn(
@@ -75,10 +73,13 @@ function JoinConferenceCall() {
     console.log("Joining " + meetingUri + " ...");
     conversation = client.conversationsManager.getConversationByUri(meetingUri);
     client.conversationsManager.conversations.added(meetingConversationAdded);
+
     $("#loadingImage").hide();
     $("#displayAllElements").show();
     if (usertype == "Doctor") {
-        StartParticipantVideo();
+        //StartParticipantVideo();
+        angular.element('#peersList').scope().loadData();
+        angular.element('#patientResponse').scope().loadData();
     }
     var id = conversation.selfParticipant.person.id();
     id = id.substring(id.indexOf('sip:') + 4, id.indexOf("@"));
@@ -87,11 +88,11 @@ function JoinConferenceCall() {
         console.log("conversation started.");
     });
     conversation.historyService.activityItems.added(function (message) {
-        if (message.text() != null) {
+        if (message.type() === "TextMessage") {
             openChatWindow();
         }
         incomingMessageCount++;
-        if (message != null) {
+        if (message.type() === "TextMessage") {
             historyAppend(id, XMessage(message));
         }
     });
@@ -103,8 +104,10 @@ function JoinConferenceCall() {
 function meetingConversationAdded(conversation) {
     console.log("Conversation added!");
     // Handle conversation disconnections by removing them from memory.
-    conversation.state.once("Disconnected", function () {
-        console.log("Conversation disconnected. Removing it.");
+    conversation.state.changed(function (newStatus, reason, oldStatus) {
+        if (newStatus === "Disconnected") {
+            console.log("Conversation disconnected. Removing it.");
+        }
     });
 
     conversation.selfParticipant.state.changed(function (state) {
@@ -117,38 +120,39 @@ function meetingConversationAdded(conversation) {
             $('#landingContent').css('height', $(window).height());
         }
         if (state === 'Connected') {
-            conversation.audioService.start().then(function () {
-                console.log("audio service started!");
-            }, function (err) {
-                console.error("Error starting audio service: " + err);
-            });
             $('#landingContent').hide();
+            $("#loadingImage").hide();
+            $("#displayAllElements").show();
             $('#allVideoControls').show();
+            var countOfParticipantsAndSelf = conversation.participantsCount() + 1;
+            $('#participantsList').empty();
+            $('#participantCount').text(countOfParticipantsAndSelf);
+            var listOfParticipantDiv = "<div class='vh-list__item vh-list__item--divider'>" +
+                conversation.selfParticipant.person.displayName(); +"</div>";
+            conversation.participants.each(function (callParticipant) {
+                listOfParticipantDiv = listOfParticipantDiv + "<div class='vh-list__item vh-list__item--divider'>" + callParticipant.person.displayName() + "</div>";
+            });
+            $('#participantsList').append(listOfParticipantDiv);
+            $('#participantCount').text(countOfParticipantsAndSelf);
             if (usertype === "Patient") {
                 $('#PatientsList').css("visibility", "hidden");
                 $('#doctorSection').css("visibility", "hidden");
-                var countOfParticipantsAndSelf = conversation.participantsCount() + 1;
-                $('#participantsList').empty();
-                $('#participantCount').text(countOfParticipantsAndSelf);
-                var listOfParticipantDiv = "<div class='vh-list__item vh-list__item--divider'>" +
-                    conversation.selfParticipant.person.displayName().split("-")[0]; +"</div>";
-                conversation.participants.each(function (callParticipant) {
-                    listOfParticipantDiv = listOfParticipantDiv + "<div class='vh-list__item vh-list__item--divider'>" + callParticipant.person.displayName().split("-")[0] + "</div>";
-                });
-                $('#participantsList').append(listOfParticipantDiv);
-                $('#participantCount').text(countOfParticipantsAndSelf);
+                if (conversation.audioService.state() !== "Connected") {
+                    conversation.audioService.start().then(function () {
+                        console.log("audio service started!");
+                    }, function (err) {
+                        console.log("Error starting audio service: " + err);
+                    });
+                }
             }
             else {
+                StartParticipantVideo();
                 $('#PatientsList').show();
                 $('#PatientsList').css('display', 'table-cell');
-                angular.element('#peersList').scope().loadData();
-                angular.element('#patientResponse').scope().loadData();
+                $('#loadingText').html("Patient did not join the conference.");
             }
 
             $('#signInStatus').html("Connected");
-            if (usertype == "Doctor") {
-                $('#loadingText').html("Patient did not join the conference.");
-            }
         }
     });
 
@@ -186,12 +190,6 @@ function meetingConversationAdded(conversation) {
             if (state == 'Connected') {
                 joined = true;
                 $('#loadingText').html("The meeting has started. Use the buttons at the bottom to share your video or see video of other participants.");
-                if (usertype === 'Patient') {
-                    setTimeout(function () {
-                        RenderVideo(meetingUri);
-                        ShowOthersVideo();
-                    }, 1000);
-                }
                 var countOfParticipantsAndSelf = conversation.participantsCount() + 1;
                 $('#participantsList').empty();
                 $('#participantCount').text(countOfParticipantsAndSelf);
@@ -226,6 +224,23 @@ function meetingConversationAdded(conversation) {
                     $('#loadingText').show();
                 }
             }
+
+            skypeParticipant.video.state.when('Connected', function () {
+                // lets assign a container.
+                skypeParticipant.video.channels(0).isVideoOn.when(true, function () {
+                    setTimeout(function () {
+                        RenderVideo(meetingUri);
+                        ShowOthersVideo();
+                    }, 2000);
+                });
+                skypeParticipant.video.channels(0).isVideoOn.when(false, function () {
+                    skypeParticipant.video.channels(0).stream.source.sink.container.set(null);
+                    StopRenderingVideo(meetingUri);
+                    HideOthersVideo();
+                });
+            });
+            skypeParticipant.video.channels(0).isVideoOn.subscribe();
+            skypeParticipant.video.state.subscribe();
         });
     });
 
@@ -289,7 +304,7 @@ function SendIMMessages(participantEmail, id) {
         chatService1 = StartChatConversation(participantEmail, selfParticipantEmail, id);
     }
     var textmessage = $('#message_' + id).val();
-    var chatConversation = chatClient.conversationsManager.getConversation("sip:" + participantEmail);
+    chatConversation = chatClient.conversationsManager.getConversation("sip:" + participantEmail);
 
     chatService1.sendMessage(textmessage);
     $('#message_' + id).val("");
@@ -590,17 +605,26 @@ function MuteAndUnMute(uri) {
 function StartParticipantVideo() {
     $('#btn-start-video').hide();
     $('#btn-stop-video').show();
-    conversation.videoService.start();
-    var selfChannel = conversation.selfParticipant.video.channels(0);
-    selfChannel.stream.source.sink.container.set(document.getElementById("myVideo"));
-    conversation.selfParticipant.video.channels(0).isStarted.set(true);
-    ShowMyVideo();
+    if (conversation.videoService.state !== "Connected") {
+        conversation.videoService.start();
+    }
+    conversation.selfParticipant.video.state.changed(function (newState, reason, oldState) {
+        if (newState == 'Connected') {
+            var selfChannel = conversation.selfParticipant.video.channels(0);
+            selfChannel.stream.source.sink.format('Crop');
+            selfChannel.stream.source.sink.container.set(document.getElementById("myVideo"));
+            conversation.selfParticipant.video.channels(0).isStarted.set(true);
+            ShowMyVideo();
+        }
+    });
 };
 
 function StopParticipantVideo() {
     $('#btn-start-video').show();
     $('#btn-stop-video').hide();
-    conversation.videoService.stop();
+    conversation.selfParticipant.video.channels(0).isStarted.set(false).then(function () {
+        conversation.selfParticipant.video.channels(0).stream.source.sink.container.set(null);
+    });
     HideMyVideo();
 };
 
@@ -646,31 +670,37 @@ function HideOthersVideo() {
 }
 
 function GetPresence(emailAddress) {
-    var pSearch = chatClient.personsAndGroupsManager.createPersonSearchQuery();
+    var pSearch = client.personsAndGroupsManager.createPersonSearchQuery();
     console.log("email: " + emailAddress);
     pSearch.text(emailAddress);
     pSearch.limit(1);
     pSearch.getMore().then(function () {
         var sr = pSearch.results();
-        return sr[0].result;
+        if (sr[0] != null) {
+            return sr[0].result;
+        }
     }).then(function (contact) {
-        var name = contact.displayName();
-        console.log("contact name: " + name);
-        contact.status.changed(function (newStatus, reason, oldStatus) {
-            if (oldStatus !== undefined) {
-                console.log("status is: " + newStatus + ", old status: " + oldStatus);
-                var id = emailAddress.substring(0, emailAddress.indexOf('@'));
-                $('#presence_' + id)
-                    .removeClass(oldStatus.toLowerCase())
-                    .addClass(newStatus.toLowerCase());
-            } else {
-                console.log("status is: " + newStatus);
-                var id = emailAddress.substring(0, emailAddress.indexOf('@'));
-                $('#presence_' + id)
-                    .addClass(newStatus.toLowerCase());
+        if (contact != undefined || contact != null) {
+            var name = contact.displayName();
+            console.log("contact name: " + name);
+            var id = emailAddress.substring(0, emailAddress.indexOf('@'));
+            if (contact.company() != undefined) {
+                $('#presence_' + id).css('background-image', 'url(' + contact.avatarUrl() + ')');
             }
-        });
-        contact.status.subscribe();
+            contact.status.changed(function (newStatus, reason, oldStatus) {
+                if (oldStatus !== undefined) {
+                    console.log("status is: " + newStatus + ", old status: " + oldStatus);
+                    $('#presence_' + id)
+                        .removeClass(oldStatus.toLowerCase())
+                        .addClass(newStatus.toLowerCase());
+                } else {
+                    console.log("status is: " + newStatus);
+                    $('#presence_' + id)
+                        .addClass(newStatus.toLowerCase());
+                }
+            });
+            contact.status.subscribe();
+        }
     }).then(null, function (error) {
         console.log(error || 'Something went wrong');
     });

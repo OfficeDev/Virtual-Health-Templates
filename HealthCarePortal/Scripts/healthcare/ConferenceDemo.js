@@ -1,11 +1,8 @@
-﻿
-$(".rating-input").change(function () {
+﻿$(".rating-input").change(function () {
     if (this.checked) {
         callRating = this.value;
     }
 });
-
-
 
 $(document).ready(function () {
     $("#loadingImage").show();
@@ -109,25 +106,25 @@ function register_popup(participantEmail, id, name) {
     console.log("object exists: " + objExists);
     if (objExists == null) {
         var element = '<div id="' + id + '"><div id="chatPopUp_' + id + '" >' +
-                '<div id="chatServiceWrap_' + id + '" class="chatServiceWrap"> ' +
-                    '<div class="panel panel-primary">' +
-                        '<div class="panel-heading" id="accordion">' +
-                            '<span class="glyphicon glyphicon-comment"></span> ' + name +
-                            '<div class="btn-group pull-right">' +
-                                '<a type="button" class="btn-default-override btn-xs" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" id="chatClose_' + id + '" >' +
-                                     '<button type="button" class="close" style="color:#fff;" ><span aria-hidden="true" >&times;</span></button>' +
-                                '</a>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>' +
-                    '<div class="panel-body">' +
-                        '<div id="message-history_' + id + '" class="messages"></div>' +
-                        '<div>' +
-                            '<input id="message_' + id + '" type="text" placeholder="Type Message here" style="border:1px solid black;width:100%"/>' 
+            '<div id="chatServiceWrap_' + id + '" class="chatServiceWrap"> ' +
+            '<div class="panel panel-primary">' +
+            '<div class="panel-heading" id="accordion">' +
+            '<span class="glyphicon glyphicon-comment"></span> ' + name +
+            '<div class="btn-group pull-right">' +
+            '<a type="button" class="btn-default-override btn-xs" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" id="chatClose_' + id + '" >' +
+            '<button type="button" class="close" style="color:#fff;" ><span aria-hidden="true" >&times;</span></button>' +
+            '</a>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="panel-body">' +
+            '<div id="message-history_' + id + '" class="messages"></div>' +
+            '<div>' +
+            '<input id="message_' + id + '" type="text" placeholder="Type Message here" style="border:1px solid black;width:100%"/>'
         '</div>' +
-    '</div>' +
-    '</div>' +
-'</div></div>';
+            '</div>' +
+            '</div>' +
+            '</div></div>';
 
         $('#multipleChats').append(element);
 
@@ -154,7 +151,6 @@ function register_popup(participantEmail, id, name) {
     }
     popups.unshift(id);
     calculate_popups();
-
 }
 
 function detectIE() {
@@ -183,7 +179,6 @@ function calculate_popups() {
     }
 
     display_popups();
-
 }
 //displays the popups. Displays based on the maximum number of popups that can be displayed on the current viewport width
 function display_popups() {
@@ -313,7 +308,6 @@ function CheckQuestionnaireRequired() {
         $('#patientQuestionnairePopup').hide();
         questionaireSubmitted = true;
     }
-
 }
 
 function CheckAndSubmit() {
@@ -369,14 +363,14 @@ function InitializeConferenceCall() {
                 authTokenFromTrustedApi = response;
                 InitialiseSkype();
             },
-             function (response) {
-                 //error
-                 console.log(response);
-             },
-             function (response) {
-                 //notification
-                 console.log(response);
-             });
+            function (response) {
+                //error
+                console.log(response);
+            },
+            function (response) {
+                //notification
+                console.log(response);
+            });
     }
 }
 
@@ -399,11 +393,9 @@ $('#chatClose').click(function () {
 });
 
 $('#btnShowDevices').click(function () {
-
     $('#divDevicesPopUpBox').show();
 });
 $('#btnHideDevices').click(function () {
-
     $('#divDevicesPopUpBox').hide();
 });
 $('#btnHideShow').click(function () {
@@ -416,7 +408,6 @@ $('#btnHideShow').click(function () {
         });
         $(this).removeClass('right-arrow');
         $(this).addClass('left-arrow');
-
     }
     else {
         $('#PatientQuestionnaire').animate({
@@ -439,11 +430,9 @@ $('#btn-hideothers-video').click(function () {
 });
 
 $('#btnHangUp, #hang-up').click(function () {
-
     if (confirm("Are you sure to end the call?")) {
         hangUp();
     }
-
 });
 function hangUp() {
     if (meetingUri.trim()) {
@@ -468,7 +457,6 @@ function hangUp() {
 $('#btn-mute, #btn-unmute').click(function () {
     MuteAndUnMute(meetingUri);
 });
-
 
 $('#btn-show-video').click(function () {
     ShowMyVideo(meetingUri);
@@ -543,7 +531,6 @@ $('#btnMinScreen').click(function () {
 });
 
 $('#btnMaxScreen').click(function () {
-
     $('#allVideoControls').removeClass('container');
     $('#callControls').css('height', $(window).height() - 150);
     $('#btnMaxScreen').hide();
@@ -609,10 +596,8 @@ $("#btnAddFeedback").click(function () {
     });
 });
 
-
 function openPopUpBox() {
     $("#divPopBox").show();
-
 }
 
 function delay(ms) {
@@ -622,10 +607,10 @@ function delay(ms) {
 
 window.onbeforeunload = function (e) {
     if (joined) {
+        e.stopPropagation();
+        e.preventDefault();
         HangUpCall(meetingUri);
-        var dialogText = 'Conversation will get disconnected';
-        e.returnValue = dialogText;
-        return dialogText;
+        return null;
     }
 }
 
@@ -635,9 +620,7 @@ $("#divPopBoxClose").click(function () {
     }, 3000);
 });
 
-
 function updateMeetingEndTime() {
-
     var url = hostUri + 'HealthCare/UpdateMeetingEndTime?itemId=' + meetingId + '&time=' + new Date().toISOString();
     $.ajax({
         url: url,
@@ -649,11 +632,10 @@ function updateMeetingEndTime() {
             console.log("meeting end time :Error");
         }
     });
-
 }
 function getBrowser() {
     var ua = navigator.userAgent, tem,
-    M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+        M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
     if (/trident/i.test(M[1])) {
         tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
         return 'IE ' + (tem[1] || '');
@@ -752,7 +734,6 @@ app.controller('PatientResponseCtrl', function ($scope) {
         });
     }
 });
-
 
 function SaveQuestionnaire() {
     questions[0].MeetingId = meetingId;
@@ -859,4 +840,3 @@ function CheckTimeOfJoining() {
         }
     });
 }
-

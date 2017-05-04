@@ -4,7 +4,7 @@ var self = this;
 var client;
 var chatClient;
 var participantState;
-var joined = false;
+
 var emailAddress;
 var conversation;
 var meetingUri;
@@ -120,6 +120,7 @@ function meetingConversationAdded(conversation) {
             $('#landingContent').css('height', $(window).height());
         }
         if (state === 'Connected') {
+            joined = true;
             $('#landingContent').hide();
             $("#loadingImage").hide();
             $("#displayAllElements").show();
@@ -580,6 +581,7 @@ function HangUpCall(uri) {
         conversation.videoService.stop();
         conversation.leave();
         joined = false;
+        client.signInManager.signOut();
         $('#loadingText').hide();
         console.log("call ended for: " + emailAddress);
     }

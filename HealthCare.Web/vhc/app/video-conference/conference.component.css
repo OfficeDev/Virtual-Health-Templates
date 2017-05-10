@@ -1,0 +1,70 @@
+﻿.sidebar-panel {
+  border-right: 1px solid #c8c8c8
+}
+
+
+.ms-ListItem-image-persona {
+  border-radius: 50%;
+  background-color: #eee !important;
+}
+
+.ms-ListItem-image-people {
+  border-radius: 50%;
+  text-align: center;
+  background:none;
+}
+
+.ms-Persona-initials-people{
+  width:60px !important;
+  height:60px !important;
+  line-height:60px !important
+
+}
+
+.people-search {
+  overflow-y: auto;
+  max-height: 300px;
+  overflow-x: hidden;
+}
+
+.ms-border-bottom-light{
+  border-bottom:1px solid #efefef;
+}
+
+.self-video {
+  position: fixed;
+  z-index: 3;
+  width: 400px;
+  right: 10px;
+  bottom: 0;
+  border: 1px solid #c8c8c8;
+}
+
+
+.ms-video-caption {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+  padding: 10px 10px;
+  z-index: 3;
+  opacity: 0.7;
+  height: 40px;
+  box-sizing: border-box;
+}
+
+
+.ms-video:hover .ms-video-caption {
+  display: block;
+}
+
+.overflow-y-auto{
+  overflow-y:auto;
+}
+
+.screenShare{
+  z-index: 9;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}

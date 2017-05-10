@@ -1,0 +1,326 @@
+﻿<div class="clearfix"></div>
+<div class="ms-Grid">
+  <div class="ms-Grid-row">
+    <!-- Sidebar -->
+    <div class="ms-Grid-col ms-u-sm6 ms-u-md5 ms-u-lg4 ms-u-xl2 ms-u-xxl2 sidebar-panel" [style.height]="windowHeight">
+
+      <div class="ms-Grid-row ms-bgColor-neutralLight ms-fontColor-black p-y-siderbar" *ngIf="skypeParticipantCount > 0">
+        <div class="ms-u-md12  ms-u-textAlignCenter">
+          <i class="fa fa-hc fa-users ms-fontColor-themePrimary"></i>
+          <span class="ms-u-md12  text-center">
+            Particpants - {{skypeParticipantCount}}
+          </span>
+        </div>
+      </div>
+
+      <div class="ms-Grid-row" *ngIf="activeMembers.length">
+        <div class="ms-u-md12">
+          <ul class="ms-List">
+            <li class="ms-ListItem" *ngFor="let member of activeMembers">
+              <div class="ms-Persona">
+                <div class="ms-Persona-imageArea" (click)="admitUser(member)">
+                  <div class="ms-Persona-initials ms-Persona-initials--blue"
+                       [ngClass]="{'ms-bgColor-yellow ms-fontColor-black' : member.Status == 2,'ms-Persona-initials--blue' : member.Status == 0 ,'ms-bgColor-neutralLight ms-fontColor-black' : member.Status == 1}">{{ member.Title | PersonaImage }}</div>
+                </div>
+                <div class="ms-Persona-presence">
+                  <i class="ms-Persona-presenceIcon ms-Icon ms-Icon--SkypeCheck"></i>
+                </div>
+                <div class="ms-Persona-details">
+                  <div class="ms-Persona-primaryText">{{member.Title}}</div>
+                  <div class="ms-Persona-secondaryText">{{member.Designation}}</div>
+                </div>
+                <div class="ms-Persona-action pull-right fa-hc ms-fontColor-themePrimary"
+                     (click)="admitUser(member)"
+                     *ngIf="member.Status == 2">
+                  <i class="ms-Icon ms-Icon--AddFriend"></i>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ms-Grid-row ms-bgColor-neutralLight ms-fontColor-black p-y-siderbar" *ngIf="isDoctor">
+        <div class="ms-u-md12 ms-u-textAlignCenter">
+          <span class="ms-CommandButton-icon ms-fontColor-themePrimary">
+            <i class="fa fa-user-md"></i>
+          </span>
+          <span class="ms-u-md12">&nbsp;</span>
+          <span class="ms-u-md12">&nbsp;Care Team</span>
+        </div>
+      </div>
+
+      <div class="ms-Grid-row" *ngIf="isDoctor">
+        <div class="ms-u-md12">
+          <ul class="ms-List">
+            <li class="ms-ListItem" *ngFor="let leader of leaders">
+              <div class="ms-Persona">
+                <div class="ms-Persona-imageArea" (click)="openChat(leader)">
+                  <div class="ms-Persona-initials ms-Persona-initials--blue">{{ leader.Title | PersonaImage }}</div>
+                </div>
+                <div class="ms-Persona-presence">
+                  <i class="ms-Persona-presenceIcon ms-Icon ms-Icon--SkypeCheck"></i>
+                </div>
+                <div class="ms-Persona-details">
+                  <div class="ms-Persona-primaryText">{{leader.Title}}</div>
+                  <div class="ms-Persona-secondaryText">{{leader.Designation}}</div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Main Content -->
+
+    <div class="ms-Grid-col ms-u-sm6 ms-u-md7 ms-u-lg10 ms-u-xl10 ms-u-xxl10" [style.height]="windowHeight">
+      <div class="ms-Grid-row">
+        <div class="ms-u-md12">
+          <div class="ms-CommandBar ms-CommandBar--navBar">
+            <div class="ms-CommandBar-sideCommands">
+              <div class="ms-CommandButton ms-CommandButton--pivot">
+                <button class="ms-CommandButton-button" (click)="openDevicesDialog()">
+                  <span class="ms-CommandButton-icon ms-fontColor-themePrimary">
+                    <i class="ms-Icon ms-Icon--Settings"></i>
+                  </span>
+                  <span class="ms-CommandButton-label">Configure Devices</span>
+                </button>
+              </div>
+              <div class="ms-CommandButton ms-CommandButton--pivot" *ngIf="isDoctor && ShowLeave">
+                <button class="ms-CommandButton-button" (click)="openEmailInviteDialog()">
+                  <span class="ms-CommandButton-icon ms-fontColor-themePrimary">
+                    <i class="ms-Icon ms-Icon--Mail"></i>
+                  </span>
+                  <span class="ms-CommandButton-label">Send Invite</span>
+                </button>
+              </div>
+            </div>
+            <div class="ms-CommandBar-mainArea">
+              <div class="ms-CommandButton ms-CommandButton--pivot"
+                   *ngIf="ShowLeave">
+                <button class="ms-CommandButton-button" (click)="startStopVideo()">
+                  <span class="ms-CommandButton-icon ms-fontColor-themePrimary" *ngIf="!videoEnabled">
+                    <i class="ms-Icon ms-Icon--Video"></i>
+                  </span>
+                  <span class="ms-CommandButton-icon ms-fontColor-themePrimary" *ngIf="videoEnabled">
+                    <i class="fa fa-stop-circle-o"></i>
+                  </span>
+                  <span class="ms-CommandButton-label">{{ videoEnabled ? 'Stop Video' : 'Start Video'}}</span>
+                </button>
+              </div>
+              <div class="ms-CommandButton ms-CommandButton--pivot" (click)="hangup()"
+                   *ngIf="ShowLeave">
+                <button class="ms-CommandButton-button">
+                  <span class="ms-CommandButton-icon ms-fontColor-themePrimary">
+                    <i class="fa fa-stop"></i>
+                  </span>
+                  <span class="ms-CommandButton-label">Leave Call</span>
+                </button>
+              </div>
+              <div class="ms-CommandButton ms-CommandButton--pivot" (click)="muteAndUnMuteAudio()"
+                   *ngIf="ShowLeave">
+                <button class="ms-CommandButton-button">
+                  <span class="ms-CommandButton-icon ms-fontColor-themePrimary">
+                    <i class="fa " [ngClass]="{'fa-microphone-slash' : audioEnabled , 'fa-microphone' : !audioEnabled}"></i>
+                  </span>
+                  <span class="ms-CommandButton-label">{{ audioEnabled ? 'Mute Audio' : 'Un-Mute Audio'}}</span>
+                </button>
+              </div>
+              <div class="ms-CommandButton ms-CommandButton--pivot"
+                   *ngIf="ShowLeave">
+                <button class="ms-CommandButton-button" (click)="openCommonChat()">
+                  <span class="ms-CommandButton-icon "
+                        [ngClass]="{ 'ms-fontColor-red' : unreadMessages > 0 , 'ms-fontColor-themePrimary' : unreadMessages == 0 }">
+                    <i class="ms-Icon ms-Icon--SkypeMessage"></i>
+                  </span>
+                  <span class="ms-CommandButton-label" *ngIf="unreadMessages == 0">Chat</span>
+                  <span class="ms-CommandButton-label" *ngIf="unreadMessages > 0">{{unreadMessages}}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ms-Grid-row" [style.height]="videoArea" >
+        <div class="ms-u-sm12 ms-u-md12 ms-u-lg12 ms-u-xl12 ms-u-xxl12" style="height:100%">
+          <div class="ms-u-textAlignCenter fabric-skype-overlay fabric-skype-loader-message" *ngIf="showSkypeLoader" [style.top]="loaderPosition">
+            <i class="fa fa-circle-o-notch fa-2x fa-spin color-ui-fabric" aria-hidden="true"></i>
+            <div class="clearfix">
+              <span class="ms-fontSize-l color-ui-fabric">
+                {{skypeLoaderMessage}}
+              </span>
+            </div>
+          </div>
+
+
+          <div *ngIf="skypeVideos.length > 1; else template1" class="container-fluid" >
+            <div *ngFor="let video of skypeVideos;  let i = index" class="ms-u-sm12 ms-u-md6 ms-u-lg6 ms-u-xl6 ms-u-xxl6 ms-video"
+                 [style.height]="videoSize"
+                 [ngClass]="{'pull-right': i%2 == 1 , 'pull-left': i%2 == 0}">
+              <div id="{{'skypeVideo' + i}}" title="{{video.DisplayName}}" [style.height]="videoSize" styles="position:absolute">
+              </div>
+              <div class="clearfix" *ngIf="(i+1)%3==0"></div>
+            </div>
+          </div>
+
+          <ng-template #template1>
+            <div id="skypeVideo" style="height:100%;width:100%; position:absolute;">
+            </div>
+          </ng-template>
+
+          <div class="self-video" id="selfVideo">
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Doctor Chat Panel -->
+<div class="ms-PanelExample">
+  <div class="ms-Panel ms-Panel--lg">
+    <button class="ms-Panel-closeButton ms-PanelAction-close">
+      <i class="ms-Panel-closeIcon ms-Icon ms-Icon--Cancel"></i>
+    </button>
+    <div class="ms-Panel-contentInner">
+      <p class="ms-Panel-headerText">
+        <span class="ms-fontSize-xxl">Chat with {{ activeDoctor }} </span>
+      </p>
+      <div class="ms-Panel-content">
+        <form #chatForm="ngForm">
+          <div class="ms-Grid">
+            <div class="ms-Grid-row ms-u-lg12">
+              <div class="ms-TextField ms-TextField--multiline">
+                <textarea class="ms-TextField-field" name="chatMessage" [(ngModel)]="chatMessage"></textarea>
+              </div>
+              <button class="ms-Button ms-Button--primary" name="btnSendMessage " type="submit" (click)="postMessage()">
+                <span class="ms-Button-label">Send Message</span>
+              </button>
+            </div>
+          </div>
+        </form>
+        <div class="m-y-3">
+          <span class="ms-font-xl">Messages</span>
+          <ul class="ms-List chat-messages" *ngFor="let message of chatMessages">
+            <li class="ms-ListItem is-unread m-y-1" tabindex="0">
+              <span class="ms-ListItem-primaryText">{{message.SenderName}}</span>
+              <span class="ms-ListItem-tertiaryText">{{message.Html}}</span>
+              <span class="ms-ListItem-metaText">{{message.TimeStamp  | amTimeAgo}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Send Email Invite -->
+<div>
+  <div class="ms-Dialog ms-Dialog--lgHeader ms-large-dialog ms-Dialog--blocking" id="emailInviteDialog">
+    <div class="ms-Dialog-title">Send Email Invite</div>
+    <div class="ms-Dialog-content">
+      <div class="ms-Grid">
+        <div class="ms-u-md12 ms-u-lg12 ms-u-xl12 ms-u-xxl12 ms-Grid-row">
+          <form #emailInviteForm="ngForm">
+            <div class="ms-TextField">
+              <label class="ms-Label">Email</label>
+              <input name="emailInvite" required class="ms-TextField-field" type="text" 
+                     placeholder="Enter email Id " [(ngModel)]="appt.Email" #emailInvite="ngModel"
+                     [class.has-error]="emailInvite.invalid && emailInvite.touched" />
+              <div aria-live="assertive" *ngIf="emailInvite.invalid && emailInvite.touched">
+                <p class="ms-TextField-errorMessage ms-u-slideDownIn20 ms-Error-message">
+                  <i class="ms-Icon ms-Icon--Error" aria-hidden="true"></i>
+                  <span>Email is required. </span>
+                </p>
+              </div>
+            </div>
+            <div class="ms-TextField">
+              <label class="ms-Label">Name</label>
+              <input id="inputNameId" name="inputName" class="ms-TextField-field" type="text" required
+                     [(ngModel)]="appt.FullName" #fullName="ngModel"
+                     [class.has-error]="fullName.invalid && fullName.touched"
+                     placeholder="Enter Name " />
+              <div aria-live="assertive" *ngIf="fullName.invalid && fullName.touched">
+                <p class="ms-TextField-errorMessage ms-u-slideDownIn20 ms-Error-message">
+                  <i class="ms-Icon ms-Icon--Error" aria-hidden="true"></i>
+                  <span>Name is required. </span>
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="ms-Dialog-actions">
+          <button name="btnSendEmailInvite" class="ms-Button ms-Button--primary" type="submit"
+                  [ngClass]="{ 'is-disabled': emailInviteForm.invalid}"
+                  [disabled]="emailInviteForm.invalid"
+                  (click)="sendEmailInvite(emailInviteForm)">
+            <span class="ms-Button-label">Send Invite</span>
+          </button>
+          <button name="btnCancelSend" class="ms-Button ms-Button--primary" (click)="cancelSendEmailInvite()">
+            <span class="ms-Button-label">Cancel</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Configuration Dialog-->
+<div>
+  <div class="ms-Dialog ms-Dialog--lgHeader ms-large-dialog" id="configurationDialog">
+    <div class="ms-Dialog-title">Configure Devices</div>
+    <div class="ms-Dialog-content">
+      <div class="ms-Grid">
+
+        <div class="ms-u-md12 ms-u-lg12 ms-u-xl12 ms-u-xxl12 ms-Grid-row">
+          <form #configurationForm="ngForm" *ngIf="!hideConfiguration">
+            <div class="m-y-1">
+              <label class="ms-Label">Cameras</label>
+              <select class="form-control" name="cameras" [(ngModel)]="selectedCamera">
+                <option *ngFor="let camera of cameras" value="{{camera.Id}}">{{camera.Name}}</option>
+              </select>
+            </div>
+            <div class="m-y-1">
+              <label class="ms-Label">Microphone</label>
+              <select class="form-control" name="microphone" [(ngModel)]="selectedMicrophone">
+                <option *ngFor="let micr of microphones" value="{{micr.Id}}">{{micr.Name}}</option>
+              </select>
+            </div>
+            <div class="m-y-1">
+              <label class="ms-Label">Speaker</label>
+              <select class="form-control" name="speakers" [(ngModel)]="selectedSpeaker">
+                <option *ngFor="let speaker of speakers" value="{{speaker.Id}}">{{speaker.Name}}</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="ms-u-md12 ms-u-lg12 ms-u-xl12 ms-u-xxl12 ms-Grid-row">
+          <div class="ms-MessageBar ms-MessageBar--success" [ngClass]="{'hidden': showConfigureMessage}">
+            <div class="ms-MessageBar-content">
+              <div class="ms-MessageBar-icon">
+                <i class="ms-Icon ms-Icon--Info"></i>
+              </div>
+              <div class="ms-MessageBar-text">
+                Your device configuration has been saved.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ms-Dialog-actions">
+          <button name="btnConfig" class="ms-Button ms-Button--primary" type="submit"
+                  (click)="saveConfiguration()">
+            <span class="ms-Button-label">Save</span>
+          </button>
+          <button name="btnCancelSend" class="ms-Button ms-Button--primary" (click)="closeDevicesDialog()">
+            <span class="ms-Button-label">Cancel</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+﻿<div class="ms-Toggle m-y-2">
+  <!-- fabric ui bug -> checkbox checked is not set during toggle -->
+  <input type="checkbox" id="demo-toggle-3" class="ms-Toggle-input" />
+  <label for="demo-toggle-3" class="ms-Toggle-field" [ngClass]="{'is-selected' : enabled}" (click)="changed()">
+    <span class="ms-Label ms-Label--off">Disabled</span>
+    <span class="ms-Label ms-Label--on">Enabled</span>
+  </label>
+</div>
+

@@ -1,0 +1,8 @@
+﻿<div class="ms-Breadcrumb" *ngIf="breadcrumbs.length">
+  <ul class="ms-Breadcrumb-list">
+    <li class="ms-Breadcrumb-listItem" *ngFor="let link of breadcrumbs">
+      <a class="ms-Breadcrumb-itemLink" (click)="navigateTo(link)">{{link.linkName}}</a>
+      <i class="ms-Breadcrumb-chevron ms-Icon ms-Icon--ChevronRight"></i>
+    </li>
+  </ul>
+</div>

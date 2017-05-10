@@ -1,0 +1,14 @@
+﻿.idea
+node_modules
+jspm_packages
+npm-debug.log
+debug.log
+vhc/**/*.js
+!vhc/systemjs.config.extras.js
+!vhc/systemjs.config.js
+!vhc/systemjs-angular-loader.js
+*.js.map
+e2e/**/*.js
+e2e/**/*.js.map
+_test-output
+_temp

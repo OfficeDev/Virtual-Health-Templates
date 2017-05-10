@@ -1,0 +1,152 @@
+﻿<div class="container">
+  <div class="ms-u-slideLeftIn40">
+    <fabric-breadcrumbs [breadcrumbs]="breadcrumbs"></fabric-breadcrumbs>
+    <div class="clearfix m-y-2"></div>
+    <div class="ms-Grid">
+      <div class="ms-Grid-row">
+        <div class="ms-Grid-col ms-u-sm12 ms-u-md8 ms-u-12" [class.hidden]="!loaded">
+          <form #bookingForm="ngForm">
+            <div class="ms-Grid-row">
+              <div class="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-6">
+                <div class="ms-DatePicker">
+                  <div class="ms-TextField">
+                    <label class="ms-Label is-required">Booking Date</label>
+                    <i class="ms-DatePicker-event ms-Icon ms-Icon--Event"></i>
+                    <input id="bookingDate" class="ms-TextField-field" type="text" placeholder="Select a date&hellip;" name="bookingDate" />
+                  </div>
+                  <div class="ms-DatePicker-monthComponents">
+                    <span class="ms-DatePicker-nextMonth js-nextMonth"><i class="ms-Icon ms-Icon--ChevronRight"></i></span>
+                    <span class="ms-DatePicker-prevMonth js-prevMonth"><i class="ms-Icon ms-Icon--ChevronLeft"></i></span>
+                    <div class="ms-DatePicker-headerToggleView js-showMonthPicker"></div>
+                  </div>
+                  <span class="ms-DatePicker-goToday js-goToday">Go to today</span>
+                  <div class="ms-DatePicker-monthPicker">
+                    <div class="ms-DatePicker-header">
+                      <div class="ms-DatePicker-yearComponents">
+                        <span class="ms-DatePicker-nextYear js-nextYear"><i class="ms-Icon ms-Icon--ChevronRight"></i></span>
+                        <span class="ms-DatePicker-prevYear js-prevYear"><i class="ms-Icon ms-Icon--ChevronLeft"></i></span>
+                      </div>
+                      <div class="ms-DatePicker-currentYear js-showYearPicker"></div>
+                    </div>
+                    <div class="ms-DatePicker-optionGrid">
+                      <span class="ms-DatePicker-monthOption js-changeDate" data-month="0">Jan</span>
+                      <span class="ms-DatePicker-monthOption js-changeDate" data-month="1">Feb</span>
+                      <span class="ms-DatePicker-monthOption js-changeDate" data-month="2">Mar</span>
+                      <span class="ms-DatePicker-monthOption js-changeDate" data-month="3">Apr</span>
+                      <span class="ms-DatePicker-monthOption js-changeDate" data-month="4">May</span>
+                      <span class="ms-DatePicker-monthOption js-changeDate" data-month="5">Jun</span>
+                      <span class="ms-DatePicker-monthOption js-changeDate" data-month="6">Jul</span>
+                      <span class="ms-DatePicker-monthOption js-changeDate" data-month="7">Aug</span>
+                      <span class="ms-DatePicker-monthOption js-changeDate" data-month="8">Sep</span>
+                      <span class="ms-DatePicker-monthOption js-changeDate" data-month="9">Oct</span>
+                      <span class="ms-DatePicker-monthOption js-changeDate" data-month="10">Nov</span>
+                      <span class="ms-DatePicker-monthOption js-changeDate" data-month="11">Dec</span>
+                    </div>
+                  </div>
+                  <div class="ms-DatePicker-yearPicker">
+                    <div class="ms-DatePicker-decadeComponents">
+                      <span class="ms-DatePicker-nextDecade js-nextDecade"><i class="ms-Icon ms-Icon--ChevronRight"></i></span>
+                      <span class="ms-DatePicker-prevDecade js-prevDecade"><i class="ms-Icon ms-Icon--ChevronLeft"></i></span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-6">
+                <div>
+                  <div class="ms-Dropdown" tabindex="0" [class.has-error]="timeslot.invalid && timeslot.dirty">
+                    <label class="ms-Label is-required">Time slot</label>
+                    <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--ChevronDown"></i>
+                    <select class="ms-Dropdown-select" name="timeSlot" [(ngModel)]="appt.TimeSlot" required
+                            #timeslot="ngModel"
+                            [class.has-error]="timeslot.invalid && timeslot.dirty">
+                      <option value="">Choose a Timeslot</option>
+                      <option *ngFor="let slot of timeSlots">{{slot}}</option>
+                    </select>
+                  </div>
+                  <div aria-live="assertive" *ngIf="timeslot.invalid && timeslot.dirty">
+                    <p class="ms-TextField-errorMessage ms-u-slideDownIn20 ms-Error-message">
+                      <i class="ms-Icon ms-Icon--Error" aria-hidden="true"></i>
+                      <span>Please select a time slot </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ms-TextField">
+              <label class="ms-Label is-required">Full Name</label>
+              <input class="ms-TextField-field" type="text" name="fullName" required [(ngModel)]="appt.FullName" #fullName="ngModel"
+                     [class.has-error]="fullName.invalid && fullName.touched" />
+              <div aria-live="assertive" *ngIf="fullName.invalid && fullName.touched">
+                <p class="ms-TextField-errorMessage ms-u-slideDownIn20 ms-Error-message">
+                  <i class="ms-Icon ms-Icon--Error" aria-hidden="true"></i>
+                  <span>Full name is required. </span>
+                </p>
+              </div>
+            </div>
+
+            <div class="ms-TextField">
+              <label class="ms-Label is-required">Email</label>
+              <input type="email" class="ms-TextField-field" required [(ngModel)]="appt.Email" name="email" #email="ngModel"
+                     pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                     [class.has-error]="email.invalid && email.touched">
+              <div aria-live="assertive" *ngIf="email.invalid && email.touched">
+                <p class="ms-TextField-errorMessage ms-u-slideDownIn20 ms-Error-message">
+                  <i class="ms-Icon ms-Icon--Error" aria-hidden="true"></i>
+                  <span>Email address is required. </span>
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <div class="ms-Dropdown" tabindex="0" [class.has-error]="questionnaire.invalid && questionnaire.dirty">
+                <label class="ms-Label is-required">Select a Medical condition</label>
+                <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--ChevronDown"></i>
+                <select class="ms-Dropdown-select" name="questionnaire" [(ngModel)]="appt.Questionnaire" required #questionnaire="ngModel"
+                        [class.has-error]="questionnaire.invalid && questionnaire.dirty">
+                  <option value="">Select a medical condition</option>
+                  <option *ngFor="let question of questionnaires" value="{{question}}">{{question}}</option>
+                </select>
+
+              </div>
+              <div aria-live="assertive" *ngIf="questionnaire.invalid && questionnaire.dirty">
+                <p class="ms-TextField-errorMessage ms-u-slideDownIn20 ms-Error-message">
+                  <i class="ms-Icon ms-Icon--Error" aria-hidden="true"></i>
+                  <span>Please select a medical condition. </span>
+                </p>
+              </div>
+            </div>
+
+            <div class="pull-right">
+              <button name="submitBookMeetingButton" class="ms-Button ms-Button--primary" type="submit"
+                      [ngClass]="{ 'is-disabled': bookingForm.invalid}" [disabled]="bookingForm.invalid" (click)="bookMeeting(bookingForm)">
+                <span class="ms-Button-label">Book</span>
+              </button>
+              <button name="cancelBookMeetingButton" class="ms-Button ms-Button--primary" (click)="cancel()">
+                <span class="ms-Button-label">Cancel</span>
+              </button>
+            </div>
+
+          </form>
+
+          <div class="clearfix m-y-3"></div>
+          <div *ngIf="formError">
+            <div class="ms-MessageBar ms-MessageBar--error  ms-u-sm12 ms-u-md12 ms-u-12">
+              <div class="ms-MessageBar-content">
+                <div class="ms-MessageBar-icon">
+                  <i class="ms-Icon ms-Icon--ErrorBadge"></i>
+                </div>
+                <div class="ms-MessageBar-text">
+                  {{errorMessage}}
+                  <br />
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

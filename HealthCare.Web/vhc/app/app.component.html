@@ -1,0 +1,39 @@
+﻿<header class="vh-header">
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <nav class="vh-navbar navbar m-a-0">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navMenu" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="" [routerLink]="['/dashboard']">
+              <span class="navbar-brand__logo">
+                <img src="../../Content/images/contoso_logo.png" alt="logo" />
+              </span><span class="navbar-brand__name m-l-5">LAMNA</span>
+            </a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="nav navbar-nav navbar-right" >
+              <li><a href="" [routerLink]="['/dashboard']" *ngIf="!Guest" >Dashboard</a></li>
+              <li><a href="" [routerLink]="['/book-meeting']" *ngIf="!Guest">Book Meeting</a></li>
+              <li><a href="" [routerLink]="['/configuration']" *ngIf="!Guest">Configuration</a></li>
+              <li><a (click)="openBotPanel()" title="Book meeting with Bot" *ngIf="!Guest"><i class="ms-Icon ms-Icon--SkypeMessage ms-font-xl"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+<div>
+  <router-outlet></router-outlet>
+  <fabric-spinner></fabric-spinner>
+  <fabric-toast></fabric-toast>
+  <bot-chat></bot-chat>
+</div>

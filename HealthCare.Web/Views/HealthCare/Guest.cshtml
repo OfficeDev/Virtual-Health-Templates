@@ -1,0 +1,15 @@
+﻿@model string
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<health-care-app Guest="true" Meeting="@Model">
+  <div class="fabric-overlay">
+    <div class="fabric-loader">
+      <i class="fa fa-circle-o-notch fa-2x fa-spin color-ui-fabric" aria-hidden="true"></i>
+      <div class="clearfix"></div>
+      <span class="ms-fontSize-l color-ui-fabric">Loading</span>
+    </div>
+  </div>
+</health-care-app>

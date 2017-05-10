@@ -1,0 +1,76 @@
+﻿<div class="container">
+  <div class="ms-u-slideLeftIn40">
+    <fabric-breadcrumbs [breadcrumbs]="breadcrumbs"></fabric-breadcrumbs>
+
+    <div class="ms-Grid">
+      <div class="ms-Grid-row">
+        <div class="ms-Grid-col ms-u-sm12 ms-u-md8 ms-u-12">
+          <form name="configForm">
+            <table class="ms-Table m-y-6">
+              <thead>
+                <tr>
+                  <th><span class="ms-font-xxl">Configuration</span></th>
+                  <th><span class="ms-font-xxl">Value</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="ms-fontSize-l">Default browser type for meetings</span></td>
+                  <td>
+                    <select class="form-control m-y-2" [(ngModel)]="configuration.DefaultBrowser" name="defaultbrowser">
+                      <option value="Microsoft Edge">Microsoft Edge</option>
+                      <option value="IE Explorer">Internet Explorer</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="ms-fontSize-l">Open Meeting in Private browsing</span></td>
+                  <td>
+                    <fabric-toggle [enabled]="configuration.MeetingOpenModeInBrowser" (toggle)="updateToggle($event,'private-browsing')"></fabric-toggle>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="ms-fontSize-l">Allow Participants to wait in Lobby</span></td>
+                  <td>
+                    <fabric-toggle [enabled]="configuration.AllowLobby" (toggle)="updateToggle($event,'wait-lobby')"></fabric-toggle>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="ms-fontSize-l">Allow bandwidth calculation during Meeting conference</span></td>
+                  <td><fabric-toggle [enabled]="configuration.CalculateBandwidthDuringConference" (toggle)="updateToggle($event,'bandwidth-calculation')"></fabric-toggle></td>
+                </tr>
+                <tr>
+                  <td><span class="ms-fontSize-l">Only meetings which are scheduled within 30 minuntes can be joined</span></td>
+                  <td>
+                    <fabric-toggle [enabled]="configuration.TimeOfJoiningCall" (toggle)="updateToggle($event,'time-call')"></fabric-toggle>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="ms-fontSize-l">Allow chat with peer doctors</span></td>
+                  <td>
+                    <fabric-toggle [enabled]="configuration.AllowPeerChatControl" (toggle)="updateToggle($event,'peer-doctor-chat')"></fabric-toggle>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="ms-fontSize-l">Allow meeting creation using trusted api</span></td>
+                  <td>
+                    <fabric-toggle [enabled]="configuration.AllowTrustedApiMeeting" (toggle)="updateToggle($event,'trusted-api')"></fabric-toggle>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pull-right">
+              <button class="ms-Button ms-Button--primary" (click)="discard()">
+                <span class="ms-Button-label">Discard Changes</span>
+              </button>
+              <button class="ms-Button ms-Button--primary" (click)="save()">
+                <span class="ms-Button-label">Save Changes</span>
+              </button>
+            </div>
+            <!--{{diagnostic}}-->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

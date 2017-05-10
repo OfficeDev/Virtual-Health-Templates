@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthCare.Portal", "HealthCarePortal\HealthCare.Portal.csproj", "{B71A40FE-F969-43A1-878F-57FC69DFCC8A}"
 EndProject
@@ -13,6 +13,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthCare.Core", "HealthCare.Core\HealthCare.Core.csproj", "{5ABF11AC-2438-40E6-B2BB-4D980DAB5AC5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VHCBot", "VHCBot\VHCBot.csproj", "{A8BA1066-5695-4D71-ABB4-65E5A5E0C3D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthCare.Web", "HealthCare.Web\HealthCare.Web.csproj", "{ED3E6F2A-93A3-46AC-B4D2-119C23CA180B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{A8BA1066-5695-4D71-ABB4-65E5A5E0C3D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8BA1066-5695-4D71-ABB4-65E5A5E0C3D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8BA1066-5695-4D71-ABB4-65E5A5E0C3D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED3E6F2A-93A3-46AC-B4D2-119C23CA180B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED3E6F2A-93A3-46AC-B4D2-119C23CA180B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED3E6F2A-93A3-46AC-B4D2-119C23CA180B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED3E6F2A-93A3-46AC-B4D2-119C23CA180B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

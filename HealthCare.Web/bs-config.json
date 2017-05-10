@@ -1,0 +1,8 @@
+﻿{
+  "server": {
+    "baseDir": "vhc",
+    "routes": {
+      "/node_modules": "node_modules"
+    }
+  }
+}

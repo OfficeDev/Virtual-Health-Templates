@@ -1,0 +1,54 @@
+﻿<div class="container">
+  <div class="ms-u-slideLeftIn40">
+    <fabric-breadcrumbs [breadcrumbs]="breadcrumbs"></fabric-breadcrumbs>
+
+    <div class="clearfix m-y-2"></div>
+
+    <fabric-filter (changed)="filterChanged($event)"></fabric-filter>
+
+    <table class="ms-Table">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Doctor Name</th>
+          <th>Patient Name</th>
+          <th>Start Date/ Time</th>
+          <th>End Date/ Time</th>
+          <th>Join as Doctor</th>
+          <th>Join as Patient</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appt of filteredMeetings | paginate: { itemsPerPage: 8, currentPage: p }">
+          <td>{{appt.Subject}}</td>
+          <td>{{appt.DoctorName}}</td>
+          <td>{{appt.PatientName}}</td>
+          <td>{{appt.StartDate?.DateTimeValue | amDateFormat:'LLL'}}</td>
+          <td>{{appt.EndDate?.DateTimeValue | amDateFormat:'LLL'}}</td>
+          <td><a href="" [routerLink]="['/conference', appt.EncryptedDoctorUri]">Join as Doctor</a></td>
+          <td><a href="{{'/healthcare/guest?uri=' +  appt.EncryptedPatientUri}}">Join as Patient</a></td>
+        </tr>
+        <tr *ngIf="meetings?.length > 0 && filteredMeetings?.length == 0">
+          <td colspan="8" class="text-center">
+            <span class="ms-font-xl">There are no appointments matching your search.</span>
+          </td>
+        </tr>
+
+        <tr *ngIf="meetings?.length == 0">
+          <td colspan="8" class="text-center">
+            <span class="ms-font-xl">There are no appointments scheduled for today.</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr />
+    <div class="row clearfix m-y-2 ms-font-xl ">
+      <div class="center-block">
+        <pagination-controls (pageChange)="p = $event"
+                             autoHide="true"
+                             directionLinks="false">
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

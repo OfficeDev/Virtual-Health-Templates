@@ -8,7 +8,7 @@ var participantState;
 var emailAddress;
 var conversation;
 var meetingUri;
-var incomingMessageCount = 0;
+var isCommon = true;
 var xHistory = $('#message-history');
 var chatServiceWithPatient;
 
@@ -22,10 +22,6 @@ function InitialiseSkype() {
         window.skypeWebApp = new api.application();
         client = new window.skypeWebAppCtor;
         SingInToSkype();
-        if (usertype === "Doctor") {
-            chatClient = new window.skypeWebAppCtor;
-            SignInForChat();
-        }
     }, function (err) {
         console.log(err);
         alert('Cannot load the SDK.');
@@ -53,27 +49,11 @@ function SingInToSkype() {
     });
 }
 
-function SignInForChat() {
-    var options = {
-        "client_id": clientId,
-        "origins": ["https://webdir.online.lync.com/autodiscover/autodiscoverservice.svc/root"],
-        "cors": true, "version": 'VirtualHealthTemplates/1.0.0.0',
-    }
-
-    chatClient.signInManager.signIn(
-        options
-    ).then(function () {
-        console.log("successfully signed In chat client!");
-    }, function (err) {
-        console.error("Error joining conference anonymously: " + err);
-    });
-}
-
 function JoinConferenceCall() {
     console.log("Joining " + meetingUri + " ...");
     conversation = client.conversationsManager.getConversationByUri(meetingUri);
     client.conversationsManager.conversations.added(meetingConversationAdded);
-
+    isCommon = false;
     $("#loadingImage").hide();
     $("#displayAllElements").show();
     if (usertype == "Doctor") {
@@ -90,9 +70,6 @@ function JoinConferenceCall() {
     conversation.historyService.activityItems.added(function (message) {
         if (message.type() === "TextMessage") {
             openChatWindow();
-        }
-        incomingMessageCount++;
-        if (message.type() === "TextMessage") {
             historyAppend(id, XMessage(message));
         }
     });
@@ -103,6 +80,9 @@ function JoinConferenceCall() {
 // Callback from Skype Web SDK for when a new conversation has been added.
 function meetingConversationAdded(conversation) {
     console.log("Conversation added!");
+    if (!isCommon) {
+        return;
+    }
     // Handle conversation disconnections by removing them from memory.
     conversation.state.changed(function (newStatus, reason, oldStatus) {
         if (newStatus === "Disconnected") {
@@ -269,24 +249,23 @@ function openChatWindow() {
 }
 
 function StartChatConversation(participantEmail, selfParticipant, id) {
-    var chatConversation = chatClient.conversationsManager.getConversation("sip:" + participantEmail);
+    var chatConversation = client.conversationsManager.getConversation("sip:" + participantEmail);
     if (chatConversation.participantsCount() == 0) {
         var chatConvParticipant = chatConversation.createParticipant("sip:" + selfParticipant);
         chatConversation.participants.add(chatConvParticipant);
     }
-    chatClient.conversationsManager.conversations.add(chatConversation);
-    var chatService1 = chatConversation.chatService;
+    client.conversationsManager.conversations.add(chatConversation);
+    var chatServiceWithPeer = chatConversation.chatService;
     chatConversation.historyService.activityItems.added(function (message) {
         console.log("history service message: " + message);
-        incomingMessageCount++;
-        if (message != null) {
+        if (message.type() === "TextMessage") {
             historyAppend(id, XMessage(message));
         }
     });
-    chatService1.start().then(function () {
+    chatServiceWithPeer.start().then(function () {
         console.log("conversation started.");
     });
-    return chatService1;
+    return chatServiceWithPeer;
 }
 function StartIMConversation(meetingUri) {
     var chatConversation = client.conversationsManager.getConversationByUri(meetingUri);
@@ -298,36 +277,37 @@ function StartIMConversation(meetingUri) {
     });
 }
 function SendIMMessages(participantEmail, id) {
-    var chatConversation = chatClient.conversationsManager.getConversation("sip:" + participantEmail);
-    var chatService1 = chatConversation.chatService;
+    var chatConversation = client.conversationsManager.getConversation("sip:" + participantEmail);
+    var chatServiceWithPeer = chatConversation.chatService;
     if (chatConversation.state._value == "Created") {
         selfParticipantEmail = emailAddress;
-        chatService1 = StartChatConversation(participantEmail, selfParticipantEmail, id);
+        chatServiceWithPeer = StartChatConversation(participantEmail, selfParticipantEmail, id);
     }
-    var textmessage = $('#message_' + id).val();
-    chatConversation = chatClient.conversationsManager.getConversation("sip:" + participantEmail);
 
-    chatService1.sendMessage(textmessage);
+    var textmessage = $('#message_' + id).val();
+    chatServiceWithPeer.sendMessage(textmessage).catch(function (error) {
+        console.log('Cannot send the message ' + error);
+    });
     $('#message_' + id).val("");
 }
 
 function sendMessage(meetingUri, id) {
     var message = $('#message_' + id).val();
     if (message) {
-        chatServiceWithPatient.sendMessage(message).catch(function () {
-            console.log('Cannot send the message');
+        chatServiceWithPatient.sendMessage(message).catch(function (error) {
+            console.log('Cannot send the message ' + error);
         });
     }
     $('#message_' + id).val("");
 }
 function StopConversation(meetingUri) {
-    var chatConversation = chatClient.conversationsManager.getConversationByUri(meetingUri);
+    var chatConversation = client.conversationsManager.getConversationByUri(meetingUri);
     if (chatConversation) {
         chatConversation.leave();
     }
 }
 function StopMultipleConversations(participantEmail) {
-    var chatConversation = chatClient.conversationsManager.getConversation("sip:" + participantEmail);
+    var chatConversation = client.conversationsManager.getConversation("sip:" + participantEmail);
     if (chatConversation) {
         chatConversation.leave();
     }
@@ -363,7 +343,7 @@ function XMessage(message) {
     message.status.changed(function (status) {
         //xStatus.text(status);
     });
-    if (message.sender.id() == client.personsAndGroupsManager.mePerson.id() || (chatClient != undefined && chatClient != null && message.sender.id() == chatClient.personsAndGroupsManager.mePerson.id()))
+    if (message.sender.id() == client.personsAndGroupsManager.mePerson.id())
         xMessage.addClass("fromMe");
     return xMessage;
 }

@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using HealthCare.Core.Common;
-using HealthCare.Core.Data;
-using HealthCare.Core.Helper;
+﻿/*
+ * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ * See LICENSE in the project root for license information.
+ */
 
 namespace HealthCare.Core.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using HealthCare.Core.Common;
+    using HealthCare.Core.Data;
+    using HealthCare.Core.Helper;
+
     public static class BotService
     {
         private static DateTime GetDateTime(string slots)

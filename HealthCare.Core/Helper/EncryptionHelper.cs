@@ -1,4 +1,9 @@
-﻿namespace HealthCare.Core.Helper
+﻿/*
+ * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ * See LICENSE in the project root for license information.
+ */
+
+namespace HealthCare.Core.Helper
 {
     using System;
     using System.IO;
@@ -7,7 +12,7 @@
     using System.Text;
 
     /// <summary>
-    /// Encryption and decryption helper. 
+    /// Encryption and decryption helper.
     /// </summary>
     public class EncryptionHelper
     {
@@ -171,7 +176,6 @@
                             }
                         }
                     }
-
                 }
                 byte[] key = Encoding.ASCII.GetBytes(KeyVaultHelper.EncryptionKey);
                 byte[] dataBytes = Encoding.ASCII.GetBytes(data);
@@ -233,7 +237,6 @@
                             }
                         }
                     }
-
                 }
                 byte[] key = Encoding.ASCII.GetBytes(KeyVaultHelper.EncryptionKey);
                 byte[] dataBytes = System.Convert.FromBase64String(data);

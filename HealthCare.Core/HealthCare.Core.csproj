@@ -199,6 +199,8 @@
   <ItemGroup>
     <Compile Include="Common\CertificateHelper.cs" />
     <Compile Include="Common\MeetingInvitation.cs" />
+    <Compile Include="Helper\EncryptionHelper.cs" />
+    <Compile Include="Helper\KeyVaultHelper.cs" />
     <Compile Include="Models\Entities.cs" />
     <Compile Include="Models\QuestionnaireDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -206,6 +208,7 @@
     </Compile>
     <Compile Include="Data\SharePointRepository.cs" />
     <Compile Include="Common\UtilityHelper.cs" />
+    <Compile Include="Services\BotService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

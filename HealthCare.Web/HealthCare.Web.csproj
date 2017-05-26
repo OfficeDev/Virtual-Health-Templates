@@ -384,6 +384,7 @@
     <Compile Include="Models\SkypeMeeting.cs" />
     <Compile Include="Models\TrustedApiOptions.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="WebApi\ConfigController.cs" />
     <Compile Include="WebApi\HealthCareController.cs" />
     <Compile Include="HelperClasses\EncryptionHelper.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
@@ -438,6 +439,7 @@
     <TypeScriptCompile Include="vhc\app\configuration\configuration.module.ts" />
     <TypeScriptCompile Include="vhc\app\configuration\configuration.service.ts" />
     <TypeScriptCompile Include="vhc\app\core\can-activate.service.ts" />
+    <TypeScriptCompile Include="vhc\app\core\config.service.ts" />
     <TypeScriptCompile Include="vhc\app\core\config.ts" />
     <TypeScriptCompile Include="vhc\app\core\core.module.ts" />
     <TypeScriptCompile Include="vhc\app\core\exception.service.ts" />

@@ -10,8 +10,8 @@ import { UserProfileService } from './user-profile.service';
 import { FilterListService } from './filter.service';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { LoggerService } from '../core/logger.service';
+import { ConfigService } from '../core/config.service';
 import { CanActivateAuthGuard } from '../core/can-activate.service';
-
 
 @NgModule({
     imports: [
@@ -33,6 +33,7 @@ import { CanActivateAuthGuard } from '../core/can-activate.service';
         FilterListService,
         UserProfileService,
         LoggerService,
+        ConfigService,
         CanActivateAuthGuard
     ]
 })

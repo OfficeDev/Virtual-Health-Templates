@@ -25,6 +25,7 @@
 ];
 
 export let CONFIG = {
+    AppSettings: '/api/config',
     BaseUrls: {
         Meetings: '',
         Leaders: '/api/healthcare/leaders',
@@ -43,7 +44,7 @@ export let CONFIG = {
         AnonymousToken: '/api/trustedapi/token'
     },
     SkypeApiKey: 'a42fcebd-5b43-4b89-a065-74450fb91255',
-    //Pick the value from the Web.Config ida:ClientId and paste it here in SkypeClientId
+    // Skype Client ID is retrieved using config service
     SkypeClientId: '',
     ErrorPrefix: {
         SkypeErrorPrefix: 'SKYPE ERROR: ',

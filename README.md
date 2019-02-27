@@ -1,3 +1,21 @@
+---
+topic: sample
+products:
+- Microsoft Teams
+- SharePoint
+- Office 365
+- Skype
+- Skype for Business
+languages:
+- JavaScript
+extensions:
+  contentType: samples
+  technologies:
+  - Azure AD
+  createdDate: 2/15/2017 9:47:26 AM
+  scenarios:
+  - Healthcare
+---
 ﻿Virtual Health Experiences for Skype for Business
 =================================================
 

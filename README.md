@@ -1,13 +1,13 @@
 ---
 topic: sample
 products:
-- Microsoft Teams
-- SharePoint
-- Office 365
-- Skype
-- Skype for Business
+- office-teams
+- office-sp
+- office-365
+- skype
+- office-skype-business
 languages:
-- JavaScript
+- javascript
 extensions:
   contentType: samples
   technologies:

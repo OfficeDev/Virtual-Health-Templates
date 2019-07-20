@@ -16,8 +16,8 @@ extensions:
   scenarios:
   - Healthcare
 ---
-﻿Virtual Health Experiences for Skype for Business
-=================================================
+
+# Virtual Health Experiences for Skype for Business
 
 Microsoft Services team, in partnership with the Office extensibility team,
 developed Virtual Health Experiences for Skype for Business on Office 365 – a
